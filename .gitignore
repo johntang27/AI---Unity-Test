@@ -1,0 +1,6 @@
+AI - Unity Test/Library/
+AI - Unity Test/Temp/
+AI - Unity Test/.vs/
+AI - Unity Test/HereToSlay.sln
+AI - Unity Test/Logs/
+# remember to check for *.meta files arent ignored in gitignore_global in Docs folder
