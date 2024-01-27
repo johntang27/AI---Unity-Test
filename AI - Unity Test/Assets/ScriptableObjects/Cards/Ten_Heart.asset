@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eeafeeb28cf3b246b5699d329adfdb7, type: 3}
+  m_Name: Ten_Heart
+  m_EditorClassIdentifier: 
+  cardName: Ten_Heart
+  cardSuit: 2
+  cardValue: 8
+  cardSprite: {fileID: 6036155993108107183, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
