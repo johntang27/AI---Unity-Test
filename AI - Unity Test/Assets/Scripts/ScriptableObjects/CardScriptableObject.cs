@@ -6,12 +6,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardScriptableObject", menuName = "ScriptableObjects/CardScriptableObject")]
 public class CardScriptableObject : ScriptableObject
 {
+    [SerializeField] private CardSpriteScriptableObject cardSpriteSourceSO;
     [SerializeField] private string cardName;
     [SerializeField] private CardSuit cardSuit;
     [SerializeField] private CardValue cardValue;
     [SerializeField] private Sprite cardSprite;
 
-    public void UpdateData(Sprite sprite)
+    public CardSpriteScriptableObject GetCardSpriteSourceSO => cardSpriteSourceSO;
+
+    public void UpdateData(Sprite sprite, CardSpriteScriptableObject spriteSourceSO = null)
     {
         string[] splits = this.name.Split('_');
 
@@ -27,5 +30,7 @@ public class CardScriptableObject : ScriptableObject
 
         if (sprite != null) cardSprite = sprite;
         else Debug.LogErrorFormat("cannot find sprite for {0}", cardName);
+
+        if (spriteSourceSO != null) cardSpriteSourceSO = spriteSourceSO;
     }
 }

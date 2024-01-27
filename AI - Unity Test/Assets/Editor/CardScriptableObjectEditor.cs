@@ -5,11 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(CardScriptableObject))]
+[CustomEditor(typeof(CardScriptableObject)), CanEditMultipleObjects]
 public class CardScriptableObjectEditor : Editor
 {
-    private string spritePath = "Assets/Sprites/playingCards.png";
-
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -29,16 +27,23 @@ public class CardScriptableObjectEditor : Editor
     void UpdateData()
     {
         Sprite cardSprite = null;
+        CardSpriteScriptableObject tempSO = null;
 
-        if (!File.Exists(spritePath))
+        tempSO = ((CardScriptableObject)target).GetCardSpriteSourceSO;
+        if (tempSO != null)
         {
-            Debug.LogErrorFormat("Cannot find sprite at path {0}", spritePath);
-        }
-        else
-        {
-            Object[] sprites = AssetDatabase.LoadAllAssetsAtPath(spritePath);
-            if (sprites.Length > 0) cardSprite = sprites.FirstOrDefault(x => x.name == ((CardScriptableObject)target).name) as Sprite;
-        }        
+            string spritePath = string.Format("{0}/{1}", tempSO.GetSpriteSourcePath, tempSO.GetSpriteName);
+
+            if (!File.Exists(spritePath))
+            {
+                Debug.LogErrorFormat("Cannot find sprite at path {0}", spritePath);
+            }
+            else
+            {
+                Object[] sprites = AssetDatabase.LoadAllAssetsAtPath(spritePath);
+                if (sprites.Length > 0) cardSprite = sprites.FirstOrDefault(x => x.name == ((CardScriptableObject)target).name) as Sprite;
+            }
+        }               
 
         ((CardScriptableObject)target).UpdateData(cardSprite);
         EditorUtility.SetDirty((CardScriptableObject)target);

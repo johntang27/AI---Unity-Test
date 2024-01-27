@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eeafeeb28cf3b246b5699d329adfdb7, type: 3}
   m_Name: Queen_Club
   m_EditorClassIdentifier: 
+  cardSpriteSourceSO: {fileID: 11400000, guid: 63eb0d0b37282cf4a8c3a6f250e7a0d8, type: 2}
   cardName: Queen_Club
   cardSuit: 0
   cardValue: 10
