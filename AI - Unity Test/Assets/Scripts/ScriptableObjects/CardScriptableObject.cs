@@ -13,6 +13,9 @@ public class CardScriptableObject : ScriptableObject
     [SerializeField] private Sprite cardSprite;
 
     public CardSpriteScriptableObject GetCardSpriteSourceSO => cardSpriteSourceSO;
+    public CardSuit GetSuit => cardSuit;
+    public CardValue GetValue => cardValue;
+    public Sprite GetSprite => cardSprite;
 
     public void UpdateData(Sprite sprite, CardSpriteScriptableObject spriteSourceSO = null)
     {

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8613fb6f8da6a408750a300b512ad9, type: 3}
+  m_Name: ThreeOfAKind Hand
+  m_EditorClassIdentifier: 
+  playerHand: {fileID: 11400000, guid: 4bc63ae526065ed45a589a516d38c580, type: 2}
+  pokerHandDisplayName: 3 OF A KIND
+  handRanking: 3
+  cachedResult: 

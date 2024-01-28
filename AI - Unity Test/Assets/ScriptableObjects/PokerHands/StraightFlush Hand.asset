@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91432838218c3b4f9bc5c4917a80680, type: 3}
+  m_Name: StraightFlush Hand
+  m_EditorClassIdentifier: 
+  playerHand: {fileID: 11400000, guid: 4bc63ae526065ed45a589a516d38c580, type: 2}
+  pokerHandDisplayName: STRAIGHT FLUSH
+  handRanking: 8
+  cachedResult: 
+  straight: {fileID: 11400000, guid: 00ccb1e7f5ec13940a3cafd309e8993a, type: 2}
+  flush: {fileID: 11400000, guid: 25ebbc651d495254fa34a244c2f8ea56, type: 2}

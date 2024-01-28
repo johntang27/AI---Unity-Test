@@ -7,10 +7,13 @@ public class DeckScriptableObject : ScriptableObject
 {
     [SerializeField] private List<CardScriptableObject> cards;
 
+    public List<CardScriptableObject> GetDeck => cards;
+
     public void ShuffleDeck()
     {
         if (cards.Count > 0)
         {
+            Debug.LogError("To shuffle");
             for (int i = 0; i < cards.Count; i++)
             {
                 int rand = Random.Range(0, cards.Count);

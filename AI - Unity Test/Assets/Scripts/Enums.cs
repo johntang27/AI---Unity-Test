@@ -30,7 +30,7 @@ public enum CardSuit
 public enum HandRanking
 {
     NoHand,
-    OnePair,
+    JackOrBetter,
     TwoPairs,
     ThreeOfAKind,
     Straight,
@@ -39,4 +39,10 @@ public enum HandRanking
     FourOfAKind,
     StraightFlush,
     RoyalFlush
+}
+
+public enum PokerGameState
+{
+    Deal,
+    ToDraw
 }
