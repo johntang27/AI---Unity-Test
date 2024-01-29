@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eeafeeb28cf3b246b5699d329adfdb7, type: 3}
-  m_Name: Joker
+  m_Script: {fileID: 11500000, guid: 9cd0b287c4300ff48b376e32e3594471, type: 3}
+  m_Name: BlackjackHandScriptableObject_Player
   m_EditorClassIdentifier: 
-  cardSpriteSourceSO: {fileID: 0}
-  cardName: Joker
-  cardSuit: 0
-  cardValue: 0
-  cardSprite: {fileID: 0}
-  blackjackCardValue: 0
+  currentHand: []
+  deck: {fileID: 11400000, guid: 3c209d3203238d242a81aed3b04097b4, type: 2}

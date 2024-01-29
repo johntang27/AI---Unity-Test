@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMode: 0
   isAvailable: 1
-  pokerSubGame: 0
-  playerHandCount: 5
+  playerStartingHandSize: 5
   gameInfoUrl: https://help.nj.betmgm.com/en/casino-help/table-poker/igtgamekingjacksorbetterpoker
+  pokerSubGame: 0
   playerHand: {fileID: 11400000, guid: 4bc63ae526065ed45a589a516d38c580, type: 2}
   payoutTable: {fileID: 11400000, guid: 705c9577922408a4f9c345c91614f70a, type: 2}

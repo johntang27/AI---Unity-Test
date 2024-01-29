@@ -23,14 +23,14 @@ public class PlayerCard
 [CreateAssetMenu(fileName = "PlayerHandScriptableObject", menuName = "ScriptableObjects/PlayerHandScriptableObject")]
 public class PlayerHandScriptableObject : ScriptableObject
 {
-    [SerializeField] private List<PlayerCard> currentHand = new List<PlayerCard>();
-    [SerializeField] private DeckScriptableObject deck = null;
+    [SerializeField] protected List<PlayerCard> currentHand = new List<PlayerCard>();
+    [SerializeField] protected DeckScriptableObject deck = null;
 
     public List<PlayerCard> GetCurrentHand => currentHand;
 
-    private int nextCardIndex = -1;
+    protected int nextCardIndex = -1;
 
-    public void InitializeHand(int handSize)
+    public virtual void InitializeHand(int handSize)
     {
         if (deck != null)
         {

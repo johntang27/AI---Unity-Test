@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa0450535483e944a8be0665cb85c012, type: 3}
-  m_Name: PlayerHandScriptableObject_Blackjack
+  m_Script: {fileID: 11500000, guid: 9cd0b287c4300ff48b376e32e3594471, type: 3}
+  m_Name: BlackjackHandScriptableObject_Dealer
   m_EditorClassIdentifier: 
   currentHand: []
-  deck: {fileID: 0}
+  deck: {fileID: 11400000, guid: 3c209d3203238d242a81aed3b04097b4, type: 2}
