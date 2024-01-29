@@ -17,4 +17,4 @@ MonoBehaviour:
   cardSuit: 3
   cardValue: 8
   cardSprite: {fileID: -6769186063334272391, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
-  blackJackCardValue: 10
+  blackjackCardValue: 10

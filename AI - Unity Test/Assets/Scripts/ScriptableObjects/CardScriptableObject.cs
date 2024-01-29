@@ -11,13 +11,13 @@ public class CardScriptableObject : ScriptableObject
     [SerializeField] private CardSuit cardSuit;
     [SerializeField] private CardValue cardValue;
     [SerializeField] private Sprite cardSprite;
-    [SerializeField] private int blackJackCardValue;
+    [SerializeField] private int blackjackCardValue;
 
     public CardSpriteScriptableObject GetCardSpriteSourceSO => cardSpriteSourceSO;
     public CardSuit GetSuit => cardSuit;
     public CardValue GetValue => cardValue;
     public Sprite GetSprite => cardSprite;
-    public int GetBlackJackCardValue => blackJackCardValue;
+    public int GetBlackjackCardValue => blackjackCardValue;
 
     public void UpdateData(Sprite sprite, CardSpriteScriptableObject spriteSourceSO = null)
     {
@@ -38,8 +38,8 @@ public class CardScriptableObject : ScriptableObject
 
         if (spriteSourceSO != null) cardSpriteSourceSO = spriteSourceSO;
 
-        if ((int)cardValue < (int)CardValue.Jack) blackJackCardValue = (int)cardValue + 2;
-        if (cardValue == CardValue.Jack || cardValue == CardValue.Queen || cardValue == CardValue.King) blackJackCardValue = 10;
-        if (cardValue == CardValue.Ace) blackJackCardValue = 11;
+        if ((int)cardValue < (int)CardValue.Jack) blackjackCardValue = (int)cardValue + 2;
+        if (cardValue == CardValue.Jack || cardValue == CardValue.Queen || cardValue == CardValue.King) blackjackCardValue = 10;
+        if (cardValue == CardValue.Ace) blackjackCardValue = 11;
     }
 }
