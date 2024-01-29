@@ -21,7 +21,7 @@ public class CardAreaUI : MonoBehaviour
 
         if (cardAreaContainer != null && cardButtonUI != null)
         {
-            for (int i = 0; i < PokerGameManager.Instance.GetGameSetting.GetPlayerHandCount; i++)
+            for (int i = 0; i < PokerGameManager.Instance.GetGameSetting.GetPlayerStartingHandSize; i++)
             {
                 CardButtonUI cardButton = Instantiate(cardButtonUI);
                 cardButton.transform.SetParent(cardAreaContainer);

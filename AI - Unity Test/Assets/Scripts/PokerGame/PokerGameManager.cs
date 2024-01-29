@@ -59,7 +59,7 @@ public class PokerGameManager : Singleton<PokerGameManager>
 
         payoutTableUI.DisableFlashingPayoutContent();
 
-        pokerGameSetting.GetPlayerHand.InitializeHand();
+        pokerGameSetting.GetPlayerHand.InitializeHand(pokerGameSetting.GetPlayerStartingHandSize);
 
         cardAreaUI.UpdateStartingHandUI();
 

@@ -9,12 +9,14 @@ public class PlayerCard
     public CardSuit cardSuit;
     public CardValue cardValue;
     public Sprite cardSprite;
+    public int blackjackValue;
 
     public PlayerCard(CardScriptableObject scriptableObject)
     {
         cardSuit = scriptableObject.GetSuit;
         cardValue = scriptableObject.GetValue;
         cardSprite = scriptableObject.GetSprite;
+        blackjackValue = scriptableObject.GetBlackjackCardValue;
     }
 }
 
@@ -28,19 +30,19 @@ public class PlayerHandScriptableObject : ScriptableObject
 
     private int nextCardIndex = -1;
 
-    public void InitializeHand()
+    public void InitializeHand(int handSize)
     {
         if (deck != null)
         {
             deck.ShuffleDeck();
             currentHand = new List<PlayerCard>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < handSize; i++)
             {
                 PlayerCard newCard = new PlayerCard(deck.GetDeck[i]);
                 //Debug.LogError("Adding card: " + newCard.cardValue + " of " + newCard.cardSuit);
                 currentHand.Add(newCard);
             }
-            nextCardIndex = 5;
+            nextCardIndex = handSize;
         }
     }
     
