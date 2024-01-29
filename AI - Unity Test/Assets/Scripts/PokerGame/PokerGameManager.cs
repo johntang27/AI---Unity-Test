@@ -33,7 +33,20 @@ public class PokerGameManager : Singleton<PokerGameManager>
 
     void Start()
     {
-        currentGameState = PokerGameState.Deal;
+        if (pokerGameSetting == null)
+        {
+            if (MainGameController.Instance != null)
+            {
+                pokerGameSetting = (PokerGameSettingScriptableObject)MainGameController.Instance.settingsToLoad;
+            }
+        }
+
+        if (pokerGameSetting != null)
+        {
+            if (payoutTableUI != null) payoutTableUI.Init();
+            if (cardAreaUI != null) cardAreaUI.Init();
+            if (bottomGameAreaUI != null) bottomGameAreaUI.Init();
+        }
     }
 
     private void DealCards()

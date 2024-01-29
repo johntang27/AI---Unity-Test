@@ -21,8 +21,7 @@ public class BottomGameAreaUI : MonoBehaviour
     [SerializeField] private Button dealButton = null;
     [SerializeField] private TextMeshProUGUI dealButtonText = null;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         if (PokerGameManager.Instance == null)
         {

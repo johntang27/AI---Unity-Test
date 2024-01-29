@@ -13,7 +13,7 @@ public class PayoutTableUI : MonoBehaviour
     private int cachedFlashingHandIndex = -1;
     private int cachedFlashingColIndex = -1;
 
-    private void Start()
+    public void Init()
     {
         if (payoutTable != null)
         {

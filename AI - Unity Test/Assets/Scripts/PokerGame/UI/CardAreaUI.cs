@@ -15,8 +15,7 @@ public class CardAreaUI : MonoBehaviour
     private List<CardButtonUI> playerHandUI = new List<CardButtonUI>();
     public List<CardButtonUI> GetPlayerHandUI => playerHandUI;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         if (currentHandText != null) currentHandText.text = string.Empty;
 

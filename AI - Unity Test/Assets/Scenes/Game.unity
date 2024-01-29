@@ -3281,7 +3281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e651d5cc125812f47809e1af5475fb3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pokerGameSetting: {fileID: 11400000, guid: 7ab981efccfd70f478d5cc36b15af7a7, type: 2}
+  pokerGameSetting: {fileID: 0}
   payoutTableUI: {fileID: 1862920433}
   cardAreaUI: {fileID: 805790455}
   bottomGameAreaUI: {fileID: 1508231152}
