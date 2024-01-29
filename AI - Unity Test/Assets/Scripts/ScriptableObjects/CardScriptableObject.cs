@@ -11,11 +11,13 @@ public class CardScriptableObject : ScriptableObject
     [SerializeField] private CardSuit cardSuit;
     [SerializeField] private CardValue cardValue;
     [SerializeField] private Sprite cardSprite;
+    [SerializeField] private int blackJackCardValue;
 
     public CardSpriteScriptableObject GetCardSpriteSourceSO => cardSpriteSourceSO;
     public CardSuit GetSuit => cardSuit;
     public CardValue GetValue => cardValue;
     public Sprite GetSprite => cardSprite;
+    public int GetBlackJackCardValue => blackJackCardValue;
 
     public void UpdateData(Sprite sprite, CardSpriteScriptableObject spriteSourceSO = null)
     {
@@ -35,5 +37,9 @@ public class CardScriptableObject : ScriptableObject
         else Debug.LogErrorFormat("cannot find sprite for {0}", cardName);
 
         if (spriteSourceSO != null) cardSpriteSourceSO = spriteSourceSO;
+
+        if ((int)cardValue < (int)CardValue.Jack) blackJackCardValue = (int)cardValue + 2;
+        if (cardValue == CardValue.Jack || cardValue == CardValue.Queen || cardValue == CardValue.King) blackJackCardValue = 10;
+        if (cardValue == CardValue.Ace) blackJackCardValue = 11;
     }
 }

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Joker
   m_EditorClassIdentifier: 
   cardSpriteSourceSO: {fileID: 0}
-  cardName: Joker
+  cardName: 
   cardSuit: 0
   cardValue: 0
   cardSprite: {fileID: 0}
+  blackJackCardValue: 0
