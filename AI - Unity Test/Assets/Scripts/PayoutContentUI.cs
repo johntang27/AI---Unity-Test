@@ -8,19 +8,38 @@ public class PayoutContentUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI contentText;
     [SerializeField] private Image backgroundImage;
+    [SerializeField] private Color defaultBGColor;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    bool canTextFlash = false;
 
-    public void UpdateText(string text, bool isHighestPayout, bool rightAligned = false)
+    public void UpdateText(string text, bool rightAligned = false)
     {
-        contentText.text = text;
+        if (contentText != null) contentText.text = text;
 
         if (rightAligned) contentText.alignment = TextAlignmentOptions.Right;
+    }
 
-        if (isHighestPayout) backgroundImage.color = Color.red;
+    public void HighlightBackground(bool on)
+    {
+        if (on) backgroundImage.color = Color.red;
+        else backgroundImage.color = defaultBGColor;
+    }
+
+    public void ToggleTextFlash(bool on)
+    {
+        canTextFlash = on;
+        StartCoroutine(TextFlash());
+    }
+
+    IEnumerator TextFlash()
+    {
+        while (canTextFlash)
+        {
+            contentText.color = Color.white;
+            yield return new WaitForSeconds(0.5f);
+            contentText.color = Color.yellow;
+            yield return new WaitForSeconds(0.5f);
+        }
+        contentText.color = Color.yellow;
     }
 }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65027ccf1ee98fa458b761a8044f0b5c, type: 3}
+  m_Name: JackOrBetterGameSetting
+  m_EditorClassIdentifier: 
+  gameMode: 0
+  pokerSubGame: 0
+  playerHandCount: 5
+  gameInfoUrl: https://help.nj.betmgm.com/en/casino-help/table-poker/igtgamekingjacksorbetterpoker
+  playerHand: {fileID: 11400000, guid: 4bc63ae526065ed45a589a516d38c580, type: 2}
+  payoutTable: {fileID: 11400000, guid: 705c9577922408a4f9c345c91614f70a, type: 2}

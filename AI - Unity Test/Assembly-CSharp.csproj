@@ -54,27 +54,34 @@
     <UnityVersion>2021.3.32f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\PayoutContentUI.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\CardScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PayoutTableScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\Flush_HandScriptableObject.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\DeckScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\Straight_HandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\RoyalFlush_HandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\TwoPairs_HandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\CardButtonUI.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\JackOrBetter_HandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\PokerHandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\FullHouse_HandScriptableObject.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\CardSpriteScriptableObject.cs" />
     <Compile Include="Assets\Scripts\CreateCardScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\Enums.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\PokerHandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\Straight_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PlayerHandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\PokerGameManager.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\Flush_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\TwoPairs_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\ThreeOfAKind_HandScriptableObject.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\FourOfAKind_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\FullHouse_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\StraightFlush_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\RoyalFlush_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\CardButtonUI.cs" />
+    <Compile Include="Assets\Scripts\PokerGameManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PayoutScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\JackOrBetter_HandScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\PayoutTableScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\PayoutContentUI.cs" />
+    <Compile Include="Assets\Scripts\Enums.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\StraightFlush_HandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerHands\ThreeOfAKind_HandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PlayerHandScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\PokerGameUI.cs" />
+    <Compile Include="Assets\Scripts\PayoutTableUI.cs" />
+    <Compile Include="Assets\Scripts\BottomGameAreaUI.cs" />
+    <Compile Include="Assets\Scripts\Singleton.cs" />
+    <Compile Include="Assets\Scripts\CardAreaUI.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\GameModeSettingScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PokerGameSettingScriptableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

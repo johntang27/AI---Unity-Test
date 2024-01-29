@@ -37,7 +37,7 @@ public class PlayerHandScriptableObject : ScriptableObject
             for (int i = 0; i < 5; i++)
             {
                 PlayerCard newCard = new PlayerCard(deck.GetDeck[i]);
-                Debug.LogError("Adding card: " + newCard.cardValue + " of " + newCard.cardSuit);
+                //Debug.LogError("Adding card: " + newCard.cardValue + " of " + newCard.cardSuit);
                 currentHand.Add(newCard);
             }
             nextCardIndex = 5;

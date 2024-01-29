@@ -14,8 +14,12 @@ public class ThreeOfAKind_HandScriptableObject : PokerHandScriptableObject
 
         if (!string.IsNullOrEmpty(cachedResult))
         {
-            bool.TryParse(cachedResult, out result);
-            return result;
+            bool isValidResult = bool.TryParse(cachedResult, out result);
+            if (isValidResult)
+            {
+                cachedResult = string.Empty;
+                return result;
+            }
         }
 
         result = playerHand.GetCurrentHand.GroupBy(card => card.cardValue).Where(group => group.Count() == 3).Any();

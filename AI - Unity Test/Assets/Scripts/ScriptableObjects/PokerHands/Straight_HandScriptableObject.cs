@@ -14,8 +14,12 @@ public class Straight_HandScriptableObject : PokerHandScriptableObject
 
         if (!string.IsNullOrEmpty(cachedResult))
         {
-            bool.TryParse(cachedResult, out result);
-            return result;
+            bool isValidResult = bool.TryParse(cachedResult, out result);
+            if (isValidResult)
+            {
+                cachedResult = string.Empty;
+                return result;
+            }
         }
 
         var ordered = playerHand.GetCurrentHand.OrderBy(card => card.cardValue).ToList();

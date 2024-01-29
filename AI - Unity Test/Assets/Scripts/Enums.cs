@@ -27,22 +27,27 @@ public enum CardSuit
     Spade
 }
 
-public enum HandRanking
-{
-    NoHand,
-    JackOrBetter,
-    TwoPairs,
-    ThreeOfAKind,
-    Straight,
-    Flush,
-    FullHouse,
-    FourOfAKind,
-    StraightFlush,
-    RoyalFlush
-}
-
 public enum PokerGameState
 {
     Deal,
-    ToDraw
+    Draw
+}
+
+public enum GameMode
+{
+    Poker,
+    BlackJack
+}
+
+public enum PokerSubGame
+{
+    JackOrBetter,
+    BonusPoker,
+    BonusPokerDeluxe,
+    DoubleBonusPoker,
+    DoubleDoubleBonusPoker,
+    TripleDoubleBonusPoker,
+    DeucesWildPoker,
+    DeucesWildBonusPoker,
+    JokerPoker
 }

@@ -13,7 +13,7 @@ public class DeckScriptableObject : ScriptableObject
     {
         if (cards.Count > 0)
         {
-            Debug.LogError("To shuffle");
+            //Debug.LogError("To shuffle");
             for (int i = 0; i < cards.Count; i++)
             {
                 int rand = Random.Range(0, cards.Count);

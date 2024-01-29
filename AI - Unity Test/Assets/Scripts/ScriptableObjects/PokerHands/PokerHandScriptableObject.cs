@@ -6,7 +6,6 @@ public class PokerHandScriptableObject : ScriptableObject
 {
     [SerializeField] protected PlayerHandScriptableObject playerHand = null;
     [SerializeField] protected string pokerHandDisplayName;
-    [SerializeField] protected HandRanking handRanking = HandRanking.NoHand;
 
     [SerializeField] protected string cachedResult = string.Empty;
 

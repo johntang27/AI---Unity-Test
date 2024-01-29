@@ -14,6 +14,16 @@ public class StraightFlush_HandScriptableObject : PokerHandScriptableObject
     {
         if (playerHand == null || straight == null || flush == null) return false;
 
+        if(!string.IsNullOrEmpty(cachedResult))
+        {
+            bool isValidResult = bool.TryParse(cachedResult, out result);
+            if(isValidResult)
+            {
+                cachedResult = string.Empty;
+                return result;
+            }
+        }
+
         bool isStraight = straight.IsHandValid(true);
         bool isFlush = flush.IsHandValid(true);
 
