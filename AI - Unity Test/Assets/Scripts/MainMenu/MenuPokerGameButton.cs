@@ -32,6 +32,6 @@ public class MenuPokerGameButton : MonoBehaviour
     private void OnButtonClicked()
     {
         if (MainGameController.Instance != null) MainGameController.Instance.settingsToLoad = gameSetting;
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("PokerGame");
     }
 }
