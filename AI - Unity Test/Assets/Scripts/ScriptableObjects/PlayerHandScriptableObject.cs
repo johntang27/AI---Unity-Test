@@ -28,8 +28,6 @@ public class PlayerHandScriptableObject : ScriptableObject
 
     public List<PlayerCard> GetCurrentHand => currentHand;
 
-    protected int nextCardIndex = -1;
-
     public virtual void InitializeHand(int handSize)
     {
         if (deck != null)
@@ -38,11 +36,10 @@ public class PlayerHandScriptableObject : ScriptableObject
             currentHand = new List<PlayerCard>();
             for (int i = 0; i < handSize; i++)
             {
-                PlayerCard newCard = new PlayerCard(deck.GetDeck[i]);
+                PlayerCard newCard = new PlayerCard(deck.GetNextCard());
                 //Debug.LogError("Adding card: " + newCard.cardValue + " of " + newCard.cardSuit);
                 currentHand.Add(newCard);
             }
-            nextCardIndex = handSize;
         }
     }
     
@@ -54,9 +51,7 @@ public class PlayerHandScriptableObject : ScriptableObject
             return;
         }
 
-        PlayerCard playerCard = new PlayerCard(deck.GetDeck[nextCardIndex]);
+        PlayerCard playerCard = new PlayerCard(deck.GetNextCard());
         currentHand[cardIndex] = playerCard;
-
-        nextCardIndex++;
     }
 }

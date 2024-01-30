@@ -7,6 +7,7 @@ public class DeckScriptableObject : ScriptableObject
 {
     [SerializeField] private List<CardScriptableObject> cards;
 
+    private int nextCardIndex = 0;
     public List<CardScriptableObject> GetDeck => cards;
 
     public void ShuffleDeck()
@@ -22,5 +23,19 @@ public class DeckScriptableObject : ScriptableObject
                 cards[rand] = temp;
             }
         }
+        nextCardIndex = 0;
+    }
+
+    public CardScriptableObject GetNextCard()
+    {
+        if (nextCardIndex >= cards.Count)
+        {
+            nextCardIndex = 0;
+        }
+
+        CardScriptableObject nextCard = cards[nextCardIndex];
+        nextCardIndex++;
+
+        return nextCard;
     }
 }
