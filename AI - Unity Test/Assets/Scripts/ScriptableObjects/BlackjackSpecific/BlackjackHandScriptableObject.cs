@@ -11,7 +11,7 @@ public class BlackjackHandScriptableObject : PlayerHandScriptableObject
         currentHand = new List<PlayerCard>();
     }
 
-    public void DrawCardFromDeck(int cardIndex)
+    public void DrawNextCardFromDeck()
     {
         if (deck == null)
         {
@@ -19,10 +19,14 @@ public class BlackjackHandScriptableObject : PlayerHandScriptableObject
             return;
         }
 
-        if (cardIndex < deck.GetDeck.Count)
-        {
-            PlayerCard newCard = new PlayerCard(deck.GetDeck[cardIndex]);
-            currentHand.Add(newCard);
-        }        
+        PlayerCard newCard = new PlayerCard(deck.GetNextCard());
+        currentHand.Add(newCard);
+    }
+
+    public PlayerCard GetLastCardInHand()
+    {
+        if (currentHand.Count == 0) return null;
+
+        return currentHand[currentHand.Count - 1];
     }
 }

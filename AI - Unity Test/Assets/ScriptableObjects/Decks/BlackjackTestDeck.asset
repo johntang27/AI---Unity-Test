@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f837bd669d1bc0744a3ad062b581a45c, type: 3}
+  m_Name: BlackjackTestDeck
+  m_EditorClassIdentifier: 
+  cards:
+  - {fileID: 11400000, guid: 5a53e1512b7c3ac49b8e46cbaefc74ce, type: 2}
+  - {fileID: 11400000, guid: 181c5d5232f871345bdadc6cab344b9f, type: 2}
+  - {fileID: 11400000, guid: c82372812bbf8d246bb506ec734d3b03, type: 2}
+  - {fileID: 11400000, guid: 039a0f971dc46d0498523d9a1d2a9dbc, type: 2}
+  - {fileID: 11400000, guid: f491a55075b03ee409f49fce91c8a866, type: 2}
+  - {fileID: 11400000, guid: f491a55075b03ee409f49fce91c8a866, type: 2}
+  - {fileID: 11400000, guid: 039a0f971dc46d0498523d9a1d2a9dbc, type: 2}
+  - {fileID: 11400000, guid: 5305230214316b343abd2303229af393, type: 2}
+  - {fileID: 11400000, guid: 5a53e1512b7c3ac49b8e46cbaefc74ce, type: 2}
+  - {fileID: 11400000, guid: 5a53e1512b7c3ac49b8e46cbaefc74ce, type: 2}
+  - {fileID: 11400000, guid: c82372812bbf8d246bb506ec734d3b03, type: 2}
+  - {fileID: 11400000, guid: f491a55075b03ee409f49fce91c8a866, type: 2}
+  canShuffle: 0
+  nextCardIndex: 4

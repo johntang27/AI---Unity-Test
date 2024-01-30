@@ -51,3 +51,12 @@ public enum PokerSubGame
     Deuces_Wild_Bonus_Poker,
     Joker_Poker
 }
+
+public enum BlackjackResult
+{
+    NoResult,
+    Push,
+    PlayerBlackjack,
+    PlayerLose,
+    PlayerWin
+}

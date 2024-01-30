@@ -6,12 +6,15 @@ using UnityEngine;
 public class DeckScriptableObject : ScriptableObject
 {
     [SerializeField] private List<CardScriptableObject> cards;
+    [SerializeField] private bool canShuffle = true;
 
-    private int nextCardIndex = 0;
+    [SerializeField] private int nextCardIndex = 0;
     public List<CardScriptableObject> GetDeck => cards;
 
     public void ShuffleDeck()
     {
+        if (!canShuffle) return;
+
         if (cards.Count > 0)
         {
             //Debug.LogError("To shuffle");

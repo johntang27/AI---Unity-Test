@@ -16,5 +16,6 @@ MonoBehaviour:
   isAvailable: 1
   playerStartingHandSize: 2
   gameInfoUrl: 
+  blackjackGoal: 21
   playerHand: {fileID: 11400000, guid: ff990c4b6daa9f64b8d8a68b2bc8707e, type: 2}
   dealerHand: {fileID: 11400000, guid: 500329412591da143a29a9492d1a554b, type: 2}
