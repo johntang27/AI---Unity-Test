@@ -6,8 +6,7 @@ using TMPro;
 
 public class PokerGameManager : Singleton<PokerGameManager>
 {
-    [SerializeField] private PokerGameSettingScriptableObject pokerGameSetting;
-
+    [SerializeField] private PokerGameSettingScriptableObject pokerGameSetting = null;
     [SerializeField] private PayoutTableUI payoutTableUI = null;
     [SerializeField] private CardAreaUI cardAreaUI = null;
     [SerializeField] private BottomGameAreaUI bottomGameAreaUI = null;
@@ -22,14 +21,7 @@ public class PokerGameManager : Singleton<PokerGameManager>
     public int GetCurrentPayoutMultiplierIndex => currentPayoutMultiplierIndex;
 
     public PokerGameSettingScriptableObject GetGameSetting => pokerGameSetting;
-
-    private int playerCredits
-    {
-        get => PlayerPrefs.GetInt("PlayerCredits", 100);
-        set => PlayerPrefs.SetInt("PlayerCredits", value);
-    }
-    public int GetPlayerCredits => playerCredits;
-
+    public int GetPlayerCredits => pokerGameSetting.GetPlayerData.PlayerCredits;
 
     void Start()
     {
@@ -63,7 +55,7 @@ public class PokerGameManager : Singleton<PokerGameManager>
 
         cardAreaUI.UpdateStartingHandUI();
 
-        playerCredits -= currentBet;
+        pokerGameSetting.GetPlayerData.PlayerCredits -= currentBet;
 
         bottomGameAreaUI.UpdateUIAfterDeal();
 
@@ -89,7 +81,7 @@ public class PokerGameManager : Singleton<PokerGameManager>
             {
                 cardAreaUI.UpdateCurrentValidHandText(pokerGameSetting.GetPayoutTable.GetPayoutTableList[i].GetPokerHandSO.GetDisplayName);
                 int winning = pokerGameSetting.GetPayoutTable.GetPayoutTableList[i].GetBasePayout * pokerGameSetting.GetPayoutTable.GetBetTierMultipliers[currentPayoutMultiplierIndex];
-                playerCredits += winning;
+                pokerGameSetting.GetPlayerData.PlayerCredits += winning;
                 bottomGameAreaUI.ShowWinText(winning);
                 payoutTableUI.FlashWinningPayout(i, currentPayoutMultiplierIndex + 1);
                 break;
