@@ -23,6 +23,12 @@ public class PokerGameManager : Singleton<PokerGameManager>
     public PokerGameSettingScriptableObject GetGameSetting => pokerGameSetting;
     public int GetPlayerCredits => pokerGameSetting.GetPlayerData.PlayerCredits;
 
+    [SerializeField] private float currentNextDealDelay = 2f;
+    private float maxNextDealDelay = 2f;
+    private float minNextDealDelay = 1f;
+    private float delayDecrement = 0.5f;
+    [SerializeField] private int speedIndex = 0;
+
     void Start()
     {
         if (pokerGameSetting == null)
@@ -95,7 +101,7 @@ public class PokerGameManager : Singleton<PokerGameManager>
 
     IEnumerator DelayNextDeal()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(currentNextDealDelay);
         cardAreaUI.UpdateMessageBannerText();
         bottomGameAreaUI.UpdateUIAfterResult();
         bottomGameAreaUI.ToggleBetButtons(currentBet > 1, currentBet < pokerGameSetting.GetPayoutTable.GetBetTierMultipliers.Count);
@@ -129,5 +135,21 @@ public class PokerGameManager : Singleton<PokerGameManager>
             DealCards();
         else if (currentGameState == PokerGameState.Draw)
             DrawCards();
+    }
+
+    public int AdjustSpeed()
+    {
+        if (currentNextDealDelay > minNextDealDelay)
+        {
+            currentNextDealDelay -= delayDecrement;
+            speedIndex++;
+        }
+        else
+        {
+            currentNextDealDelay = maxNextDealDelay;
+            speedIndex = 0;
+        }
+
+        return speedIndex;
     }
 }

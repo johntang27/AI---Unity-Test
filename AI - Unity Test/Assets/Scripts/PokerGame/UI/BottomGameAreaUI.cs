@@ -16,6 +16,7 @@ public class BottomGameAreaUI : MonoBehaviour
     [SerializeField] private Button gameInfoButton = null;
     [SerializeField] private Button moreGamesButton = null;
     [SerializeField] private Button speedUpButton = null;
+    [SerializeField] private GameObject[] speedIcons;
     [SerializeField] private Button betDownButton = null;
     [SerializeField] private Button betUpButton = null;
     [SerializeField] private Button dealButton = null;
@@ -34,6 +35,7 @@ public class BottomGameAreaUI : MonoBehaviour
         UpdateTotalCreditsText();
 
         if (gameInfoButton != null) gameInfoButton.onClick.AddListener(OnGameInfoClicked);
+        if (speedUpButton != null) speedUpButton.onClick.AddListener(OnSpeedButtonClicked);
         if (betDownButton != null) betDownButton.onClick.AddListener(OnBetDownClicked);
         if (betUpButton != null) betUpButton.onClick.AddListener(OnBetUpClicked);
         if (dealButton != null) dealButton.onClick.AddListener(OnDealClicked);
@@ -59,6 +61,18 @@ public class BottomGameAreaUI : MonoBehaviour
         Application.OpenURL(PokerGameManager.Instance.GetGameSetting.GetGameInfoUrl);
     }
 
+    private void OnSpeedButtonClicked()
+    {
+        int arrowIndex = PokerGameManager.Instance.AdjustSpeed();
+
+        if (arrowIndex > 0) speedIcons[arrowIndex].SetActive(true);
+        else
+        {
+            for (int i = 1; i < speedIcons.Length; i++)
+                speedIcons[i].SetActive(false);
+        }
+    }
+
     private void OnBetDownClicked()
     {
         PokerGameManager.Instance.ChangeCurrentBet(-1);
@@ -73,6 +87,7 @@ public class BottomGameAreaUI : MonoBehaviour
 
     private void OnDealClicked()
     {
+        dealButton.interactable = false;
         PokerGameManager.Instance.DealOrDrawButtonClicked();
     }
 
@@ -90,6 +105,7 @@ public class BottomGameAreaUI : MonoBehaviour
         moreGamesButton.interactable = false;
         betDownButton.interactable = false;
         betUpButton.interactable = false;
+        dealButton.interactable = true;
     }
 
     public void ShowWinText(int amt)
@@ -104,5 +120,6 @@ public class BottomGameAreaUI : MonoBehaviour
         winAmountText.gameObject.SetActive(false);
         UpdateDealButtonText("DEAL");
         moreGamesButton.interactable = true;
+        dealButton.interactable = true;
     }
 }
