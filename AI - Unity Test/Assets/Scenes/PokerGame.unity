@@ -2665,6 +2665,7 @@ GameObject:
   - component: {fileID: 1656024862}
   - component: {fileID: 1656024861}
   - component: {fileID: 1656024860}
+  - component: {fileID: 1656024863}
   m_Layer: 5
   m_Name: MoreGamesButton
   m_TagString: Untagged
@@ -2775,6 +2776,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656024858}
   m_CullTransparentMesh: 1
+--- !u!114 &1656024863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656024858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e797996f4651a46b4ab374082f3b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCanvas: {fileID: 524039902}
+  menuPopupPrefab: {fileID: 1940694275994428751, guid: d11527ff460ad4343a8699f2de1a4ec5, type: 3}
 --- !u!1 &1862920430
 GameObject:
   m_ObjectHideFlags: 0
