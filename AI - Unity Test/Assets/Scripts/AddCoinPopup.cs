@@ -10,6 +10,7 @@ public class AddCoinPopup : MonoBehaviour
     [SerializeField] private PlayerDataScriptableObject playerData = null;
     [Multiline]
     [SerializeField] private string message;
+    [SerializeField] private bool destroyOnClose = true;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI messageText = null;
@@ -47,6 +48,9 @@ public class AddCoinPopup : MonoBehaviour
     {
         if (OnClose != null) OnClose();
 
-        Destroy(this.gameObject);
+        if (destroyOnClose)
+            Destroy(this.gameObject);
+        else
+            this.gameObject.SetActive(false);
     }
 }

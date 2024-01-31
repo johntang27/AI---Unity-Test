@@ -40,6 +40,17 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
 
     [SerializeField] private int playerBestResult = 0;
 
+    private void Start()
+    {
+        if (gameSetting == null)
+        {
+            if (MainGameController.Instance != null)
+            {
+                gameSetting = (BlackjackSettingScriptableObject)MainGameController.Instance.settingsToLoad;
+            }            
+        }
+    }
+
     public void StartBlackjack()
     {
         if (gameSetting != null)
@@ -239,7 +250,7 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
         if (addCoinPopup != null && uiCanvas != null)
         {
             AddCoinPopup popup = Instantiate(addCoinPopup, uiCanvas);
-            popup.OnClose = () => playerAreauUI.SetDefaultState();
+            popup.OnClose = () => playerAreauUI.RefreshPlayerCreditsDisplay();
         }
     }
 }

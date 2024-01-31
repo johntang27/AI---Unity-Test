@@ -39,8 +39,6 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
             return;
         }
 
-        if (availableCreditsText != null) availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, BlackjackGameManager.Instance.GetPlayerCredits);
-
         if (currentBetText != null) currentBetText.text = wager.GetCurrentBet.ToString();
         if (placeBetButton != null) placeBetButton.onClick.AddListener(OnBetButtonClicked);
         if (betUpButton != null) betUpButton.onClick.AddListener(OnBetUpButtonClicked);
@@ -99,7 +97,12 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
         doubledIcon.SetActive(false);
 
         currentBetText.text = wager.GetCurrentBet.ToString();
-        availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, BlackjackGameManager.Instance.GetPlayerCredits);
+        RefreshPlayerCreditsDisplay();
+    }
+
+    public void RefreshPlayerCreditsDisplay()
+    {
+        if (availableCreditsText != null) availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, BlackjackGameManager.Instance.GetPlayerCredits);
     }
 
     private void OnBetButtonClicked()
@@ -155,6 +158,12 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
 
     private void OnDoubleButtonClicked()
     {
+        if (!wager.CanPlaceBet)
+        {
+            BlackjackGameManager.Instance.ShowAddCoinPopup();
+            return;
+        }
+
         ToggleButtons(false);
         if (BlackjackGameManager.Instance != null) BlackjackGameManager.Instance.PlayerDouble();
         availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, BlackjackGameManager.Instance.GetPlayerCredits);

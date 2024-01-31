@@ -13,15 +13,4 @@ public class MainGameController : Singleton<MainGameController>
         base.Awake();
         if (m_instance != null) DontDestroyOnLoad(this.gameObject);
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    private void OnPokerButtonClicked()
-    {
-        SceneManager.LoadScene("Game");
-    }
 }

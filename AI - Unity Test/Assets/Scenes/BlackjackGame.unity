@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c8a3cebeea00f4c8af14570b0f8ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSetting: {fileID: 11400000, guid: b0c110222d0ecf34393f69387b59ea1a, type: 2}
+  gameSetting: {fileID: 0}
   deckUI: {fileID: 1455353926}
   dealerAreaUI: {fileID: 1167255266}
   playerAreauUI: {fileID: 887503680}
@@ -482,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 260402881545127772, guid: cb449af07c6590242924fc6a9d9a122b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 260402881545127772, guid: cb449af07c6590242924fc6a9d9a122b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -694,7 +694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2017366673521169290, guid: 3d0a504f8ece62946ac787d374f2eb3c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2017366673521169290, guid: 3d0a504f8ece62946ac787d374f2eb3c, type: 3}
       propertyPath: m_AnchoredPosition.y
