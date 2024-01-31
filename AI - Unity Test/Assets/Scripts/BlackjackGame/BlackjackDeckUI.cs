@@ -11,13 +11,7 @@ public class BlackjackDeckUI : MonoBehaviour
     [SerializeField] private Transform[] playerSplitsArea;
     [SerializeField] private BlackjackCardUI cardUIPrefab = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    public void DealCardToPlayer(PlayerCard card, Action onDestinationReached = null)
+    public void DealCardToPlayer(PlayerCard card, Action onDestinationReached = null, bool isDouble = false)
     {
         if(card == null)
         {
@@ -25,8 +19,12 @@ public class BlackjackDeckUI : MonoBehaviour
             return;
         }
 
-        BlackjackCardUI cardUI = Instantiate(cardUIPrefab, this.transform.position, Quaternion.identity, this.transform);
+        Quaternion cardRot = Quaternion.identity;
+        if (isDouble) cardRot = Quaternion.Euler(0, 0, 270); //double down, card will be dealt sideway
+
+        BlackjackCardUI cardUI = Instantiate(cardUIPrefab, this.transform.position, cardRot, this.transform);
         cardUI.Init(card, playerArea.transform, playerArea.GetCardContainer, false, onDestinationReached);
+        if (isDouble) cardUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.4f); //change the pivot so it's easier to see the card underneath
     }
 
     public void DealCardToDealer(PlayerCard card, bool isFirstCard, Action onDestinationReached = null)

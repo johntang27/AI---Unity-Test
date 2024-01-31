@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd0b287c4300ff48b376e32e3594471, type: 3}
+  m_Name: BlackjackHandScriptableObject_Dealer
+  m_EditorClassIdentifier: 
+  currentHand:
+  - cardSuit: 2
+    cardValue: 2
+    cardSprite: {fileID: -4445314725687963750, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 4
+  - cardSuit: 3
+    cardValue: 0
+    cardSprite: {fileID: 7450314346910242059, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 2
+  - cardSuit: 2
+    cardValue: 4
+    cardSprite: {fileID: 7827672593897444612, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 6
+  - cardSuit: 2
+    cardValue: 12
+    cardSprite: {fileID: -7664508113980074588, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 11
+  - cardSuit: 0
+    cardValue: 11
+    cardSprite: {fileID: 3559610566736648697, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 10
+  deck: {fileID: 11400000, guid: 3c209d3203238d242a81aed3b04097b4, type: 2}

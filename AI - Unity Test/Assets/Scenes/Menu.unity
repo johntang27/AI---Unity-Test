@@ -395,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &453949913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -844,7 +844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1457169580
 RectTransform:
   m_ObjectHideFlags: 0
@@ -970,6 +970,7 @@ GameObject:
   - component: {fileID: 2116818354}
   - component: {fileID: 2116818353}
   - component: {fileID: 2116818352}
+  - component: {fileID: 2116818355}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1060,3 +1061,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2116818355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116818350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7dd6007f2a1ab4a9a003f644ca84e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseGameModeUI: {fileID: 453949912}
+  pokerGameSelection: {fileID: 1457169579}
+  toPokerGameButton: {fileID: 143492406}
+  toBlackjackButton: {fileID: 579632402}

@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class BlackjackCardAreaUI : MonoBehaviour
 {
+    private const float bannerAnimationTime = 1f;
+
     [SerializeField] protected TextMeshProUGUI currentTotalText = null;
     [SerializeField] protected Transform cardContainer = null;
-    [SerializeField] protected GameObject blackjackBanner = null;
     [SerializeField] protected GameObject bustBanner = null;
+    [SerializeField] protected RectTransform winBanner = null;
 
     public Transform GetCardContainer => cardContainer;
     
@@ -20,7 +23,7 @@ public class BlackjackCardAreaUI : MonoBehaviour
         SetDefaultState();
     }
 
-    public virtual void UpdateUI(HandResult handResult, int goal)
+    public virtual void UpdateUI(HandResult handResult, int goal, bool doubledDown = false)
     {
         this.handResult = handResult;
 
@@ -38,7 +41,6 @@ public class BlackjackCardAreaUI : MonoBehaviour
         if (handResult.lowTotal == goal || handResult.highTotal == goal)
         {
             currentTotalText.text = goal.ToString();
-            blackjackBanner.SetActive(true);
         }
 
         if(handResult.lowTotal > goal && handResult.highTotal > goal)
@@ -52,7 +54,7 @@ public class BlackjackCardAreaUI : MonoBehaviour
         if (cardContainer.childCount > 0) cardContainer.GetChild(0).GetComponent<BlackjackCardUI>().FlipFacedownCard();
     }
 
-    public void SetDefaultState()
+    public virtual void SetDefaultState()
     {
         if (currentTotalText != null) currentTotalText.transform.parent.gameObject.SetActive(false);
 
@@ -61,7 +63,24 @@ public class BlackjackCardAreaUI : MonoBehaviour
             Destroy(card.gameObject);
         }
 
-        blackjackBanner.SetActive(false);
         bustBanner.SetActive(false);
+        winBanner.gameObject.SetActive(false);
+    }
+
+    protected float AnimateBanner(RectTransform rect)
+    {
+        if (rect != null)
+        {
+            rect.gameObject.SetActive(true);
+            rect.localScale = Vector3.zero;
+            rect.DOScale(Vector3.one, bannerAnimationTime).SetEase(Ease.OutBounce);
+        }
+
+        return bannerAnimationTime;
+    }
+
+    public virtual float ShowWinUI(BlackjackResult result)
+    {
+        return AnimateBanner(winBanner);
     }
 }

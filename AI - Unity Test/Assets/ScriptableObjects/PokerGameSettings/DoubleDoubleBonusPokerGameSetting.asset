@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMode: 0
   isAvailable: 0
-  pokerSubGame: 4
-  playerHandCount: 0
+  playerStartingHandSize: 0
   gameInfoUrl: 
+  playerData: {fileID: 11400000, guid: 9b3001fd735b2c24f93a10c2dfef9706, type: 2}
+  pokerSubGame: 4
   playerHand: {fileID: 0}
   payoutTable: {fileID: 0}

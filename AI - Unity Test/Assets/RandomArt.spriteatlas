@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RandomArt
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Standalone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 12
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: f8533f56cf3f73c47884935d5e1f748f, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 534f7eb1026249043bcbb9c69f328ebd, type: 3}
+  - {fileID: 21300000, guid: 3f333d129784dd24ca6899bad1f6e523, type: 3}
+  - {fileID: 21300000, guid: b50c7044805e9ec479752d5a6ba0fcac, type: 3}
+  - {fileID: 21300000, guid: 876853a44ef2ae643931cf0d839d849c, type: 3}
+  - {fileID: 21300000, guid: 777eef250d657664fa6fdf9670bb5cbe, type: 3}
+  - {fileID: 21300000, guid: 8ca0ec5796302594689d663352c58cb4, type: 3}
+  - {fileID: 21300000, guid: fa7b41f98c8379148a877f787ac6536a, type: 3}
+  - {fileID: 21300000, guid: bc88302eaeeb56c469623464a0a07f71, type: 3}
+  - {fileID: 21300000, guid: bead5b2f6849de041a7252775c04850d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - playerWinBanner
+  - blackjackBanner
+  - fingerPoint
+  - chip
+  - dealerWinBanner
+  - busted
+  - cardBack
+  - pushBanner
+  - comingSoon
+  m_RenderDataMap: {}
+  m_Tag: RandomArt
+  m_IsVariant: 0

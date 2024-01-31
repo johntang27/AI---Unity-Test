@@ -28,12 +28,15 @@ public struct HandResult
 public class BlackjackGameManager : Singleton<BlackjackGameManager>
 {
     [SerializeField] private BlackjackSettingScriptableObject gameSetting = null;
-    [SerializeField] private BlackjackStartUI startUI = null;
     [SerializeField] private BlackjackDeckUI deckUI = null;
     [SerializeField] private BlackjackCardAreaUI dealerAreaUI = null;
     [SerializeField] private BlackjackPlayerAreaUI playerAreauUI = null;
+    [SerializeField] private Transform uiCanvas = null;
+    [SerializeField] private AddCoinPopup addCoinPopup = null;
 
     private BlackjackResult roundResult = BlackjackResult.NoResult;
+    public int GetPlayerCredits => gameSetting.GetPlayerData.PlayerCredits;
+    public int GetCurrentBet => gameSetting.GetWager.GetCurrentBet;
 
     [SerializeField] private int playerBestResult = 0;
 
@@ -41,6 +44,8 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
     {
         if (gameSetting != null)
         {
+            gameSetting.GetWager.ValidateBet();
+
             roundResult = BlackjackResult.NoResult;
 
             gameSetting.GetPlayerHand.InitializeHand(gameSetting.GetPlayerStartingHandSize);
@@ -155,7 +160,7 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
                 dealerAreaUI.UpdateUI(nextResult, gameSetting.GetBlackjackGoal);
             });
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         if (nextResult.lowTotal > gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.PlayerWin;
         else if (nextResult.lowTotal == playerBestResult) roundResult = BlackjackResult.Push;
         else if (nextResult.lowTotal > playerBestResult) roundResult = BlackjackResult.PlayerLose;
@@ -164,21 +169,23 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
         ResolveRoundResult();
     }
 
-    public void PlayerHit()
+    public void PlayerHit(bool isBetDouble = false)
     {
         AddCardToHand(gameSetting.GetPlayerHand);
 
         HandResult playerResult = CalculateHandTotal(gameSetting.GetPlayerHand.GetCurrentHand);
         if (playerResult.lowTotal > gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.PlayerLose;
-        if (playerResult.lowTotal == gameSetting.GetBlackjackGoal || playerResult.highTotal == gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.PlayerWin;
 
         playerBestResult = playerResult.highTotal > gameSetting.GetBlackjackGoal ? playerResult.lowTotal : playerResult.highTotal;
 
-        deckUI.DealCardToPlayer(gameSetting.GetPlayerHand.GetLastCardInHand(), ()=> {
-            playerAreauUI.UpdateUI(playerResult, gameSetting.GetBlackjackGoal);
-            if (roundResult != BlackjackResult.NoResult) ResolveRoundResult();
-        });
-        
+        deckUI.DealCardToPlayer(gameSetting.GetPlayerHand.GetLastCardInHand(), 
+            ()=> {
+                playerAreauUI.UpdateUI(playerResult, gameSetting.GetBlackjackGoal, isBetDouble);
+                if (roundResult != BlackjackResult.NoResult) ResolveRoundResult();
+            },
+        isBetDouble);
+
+        if (playerResult.lowTotal == gameSetting.GetBlackjackGoal || playerResult.highTotal == gameSetting.GetBlackjackGoal) StartCoroutine(DelayDealerCheck());
     }
 
     public void PlayerStand()
@@ -189,32 +196,50 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
         StartCoroutine(DealerDrawCards(dealerResult));
     }
 
-    private void ResolveRoundResult()
+    public void PlayerDouble()
     {
-        switch(roundResult)
-        {
-            case BlackjackResult.Push:
-                Debug.LogError("PUSH");
-                break;
-            case BlackjackResult.PlayerBlackjack:
-                Debug.LogError("BLACKJACK!");
-                break;
-            case BlackjackResult.PlayerWin:
-                Debug.LogError("PLAYER WIN");
-                break;
-            case BlackjackResult.PlayerLose:
-                Debug.LogError("PLAYER LOSE");
-                break;
-        }
-
-        StartCoroutine(PrepareNextRound());
+        gameSetting.GetWager.DoubleDownBet();
+        PlayerHit(true);
+        StartCoroutine(DelayDealerCheck());
     }
 
-    IEnumerator PrepareNextRound()
+    private void ResolveRoundResult()
     {
-        yield return new WaitForSeconds(1f);
-        if (startUI != null) startUI.ShowStartUI();
+        float bannerAnimationDuration = 0;
+
+        if (roundResult == BlackjackResult.PlayerLose)
+            bannerAnimationDuration = dealerAreaUI.ShowWinUI(roundResult);
+        else if (roundResult == BlackjackResult.NoResult)
+            Debug.LogError("THIS SHOULDN'T HAPPEN");
+        else
+        {
+            gameSetting.GetWager.AwardWinning(roundResult);
+            bannerAnimationDuration = playerAreauUI.ShowWinUI(roundResult);
+        }
+
+        StartCoroutine(PrepareNextRound(bannerAnimationDuration));
+    }
+
+    IEnumerator PrepareNextRound(float delay)
+    {
+        yield return new WaitForSeconds(delay + 1);
+        gameSetting.GetWager.ValidateBet();
         dealerAreaUI.SetDefaultState();
         playerAreauUI.SetDefaultState();
+    }
+
+    IEnumerator DelayDealerCheck()
+    {
+        yield return new WaitForSeconds(1f);
+        if (roundResult == BlackjackResult.NoResult) PlayerStand();
+    }
+
+    public void ShowAddCoinPopup()
+    {
+        if (addCoinPopup != null && uiCanvas != null)
+        {
+            AddCoinPopup popup = Instantiate(addCoinPopup, uiCanvas);
+            popup.OnClose = () => playerAreauUI.SetDefaultState();
+        }
     }
 }

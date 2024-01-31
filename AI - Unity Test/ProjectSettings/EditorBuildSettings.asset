@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PokerGame.unity
     guid: 06b8b551d7f501647a83b6e114ae5363
+  - enabled: 1
+    path: Assets/Scenes/BlackjackGame.unity
+    guid: eb51fbe5128a673498f01ac0d9a6bcbb
   m_configObjects: {}

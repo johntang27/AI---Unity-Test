@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3891bd06a03057b40a66bd9a21cce43b, type: 3}
+  m_Name: BlackjackSetting
+  m_EditorClassIdentifier: 
+  gameMode: 1
+  isAvailable: 1
+  playerStartingHandSize: 2
+  gameInfoUrl: 
+  playerData: {fileID: 11400000, guid: 9b3001fd735b2c24f93a10c2dfef9706, type: 2}
+  blackjackGoal: 21
+  wager: {fileID: 11400000, guid: eeb6187d0b1b87042b2ffa28fd6e4858, type: 2}
+  playerHand: {fileID: 11400000, guid: ff990c4b6daa9f64b8d8a68b2bc8707e, type: 2}
+  dealerHand: {fileID: 11400000, guid: 500329412591da143a29a9492d1a554b, type: 2}

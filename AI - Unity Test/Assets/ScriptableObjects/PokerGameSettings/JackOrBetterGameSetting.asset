@@ -16,6 +16,7 @@ MonoBehaviour:
   isAvailable: 1
   playerStartingHandSize: 5
   gameInfoUrl: https://help.nj.betmgm.com/en/casino-help/table-poker/igtgamekingjacksorbetterpoker
+  playerData: {fileID: 11400000, guid: 9b3001fd735b2c24f93a10c2dfef9706, type: 2}
   pokerSubGame: 0
   playerHand: {fileID: 11400000, guid: 4bc63ae526065ed45a589a516d38c580, type: 2}
   payoutTable: {fileID: 11400000, guid: 705c9577922408a4f9c345c91614f70a, type: 2}
