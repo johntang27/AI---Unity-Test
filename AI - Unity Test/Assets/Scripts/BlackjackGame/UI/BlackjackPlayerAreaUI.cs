@@ -7,11 +7,13 @@ using DG.Tweening;
 
 public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
 {
+    #region CONSTANTS
     private const string CREDITS_TEXT_PREFIX = "AVAILABLE CREDITS: {0}";
     private const string WIN_BANNER_TEXT = "You Win!\n{0} Credits";
     private const string PUSH_BANNER_TEXT = "PUSH, {0} Credits Back";
+    #endregion
 
-    [Header("Player Area")]
+    [Header("Player Area Specific Variables")]
     [SerializeField] private RectTransform blackjackBanner = null;
     [SerializeField] private TextMeshProUGUI winBannerText = null;
     [SerializeField] private RectTransform pushBanner = null;
@@ -39,6 +41,7 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
             return;
         }
 
+        //set up all the button onClick
         if (currentBetText != null) currentBetText.text = wager.GetCurrentBet.ToString();
         if (placeBetButton != null) placeBetButton.onClick.AddListener(OnBetButtonClicked);
         if (betUpButton != null) betUpButton.onClick.AddListener(OnBetUpButtonClicked);
@@ -54,55 +57,11 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
 
         if (betTooltip != null) betTooltip.SetActive(true);
     }
-
-    private void UpdateCreditText(float val)
+    #region PRIVATE METHODS
+    private void UpdateCreditText(float val) //used to animate the credit tick up animation on the text
     {
         int rounded = Mathf.RoundToInt(val);
         availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, rounded);
-    }
-
-    public override void UpdateUI(HandResult handResult, int goal, bool doubledDown = false)
-    {
-        base.UpdateUI(handResult, goal);
-
-        standButton.gameObject.SetActive(true);
-        hitButton.gameObject.SetActive(true);
-        doubleDownButton.gameObject.SetActive(true);
-
-        if (doubledDown) return;
-
-        if(handResult.lowTotal < goal || handResult.highTotal < goal)
-        {
-            standButton.interactable = true;
-            hitButton.interactable = true;
-        }
-    }
-
-    public override void SetDefaultState()
-    {
-        base.SetDefaultState();
-
-        placeBetButton.interactable = true;
-        ToggleChangeBetButtons();
-
-        standButton.gameObject.SetActive(false);
-        hitButton.gameObject.SetActive(false);
-        doubleDownButton.gameObject.SetActive(false);
-
-        ToggleButtons(true);
-
-        blackjackBanner.gameObject.SetActive(false);
-        pushBanner.gameObject.SetActive(false);
-
-        doubledIcon.SetActive(false);
-
-        currentBetText.text = wager.GetCurrentBet.ToString();
-        RefreshPlayerCreditsDisplay();
-    }
-
-    public void RefreshPlayerCreditsDisplay()
-    {
-        if (availableCreditsText != null) availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, BlackjackGameManager.Instance.GetPlayerCredits);
     }
 
     private void OnBetButtonClicked()
@@ -126,6 +85,7 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
 
     private void ToggleChangeBetButtons()
     {
+        //set the bet up and bet down button state based on if current can be changed or not
         betUpButton.interactable = !wager.IsCurrentBetMax && wager.CanIncreaseBet;
         betDownButton.interactable = !wager.IsCurrentBetMin;
     }
@@ -169,12 +129,69 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
         availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, BlackjackGameManager.Instance.GetPlayerCredits);
         doubledIcon.SetActive(true);
     }
+    //toggle these buttons after certain action happens, so player cant accidentaly spam them
+    private void ToggleButtons(bool active)
+    {
+        standButton.interactable = active;
+        hitButton.interactable = active;
+        doubleDownButton.interactable = active;
+    }
+    #endregion
 
+    #region PUBLIC METHODS
+    public override void UpdateUI(HandResult handResult, int goal, bool doubledDown = false)
+    {
+        base.UpdateUI(handResult, goal); //update the shared UI reference
+
+        //update the specific player area UI
+        standButton.gameObject.SetActive(true);
+        hitButton.gameObject.SetActive(true);
+        doubleDownButton.gameObject.SetActive(true);
+
+        if (doubledDown) return; //player automatically stand and can no longer hit after double down
+
+        if(handResult.lowTotal < goal || handResult.highTotal < goal)
+        {
+            standButton.interactable = true;
+            hitButton.interactable = true;
+        }
+    }
+
+    //reset Player Area specific UI
+    public override void SetDefaultState()
+    {
+        base.SetDefaultState();
+
+        placeBetButton.interactable = true;
+        ToggleChangeBetButtons();
+
+        standButton.gameObject.SetActive(false);
+        hitButton.gameObject.SetActive(false);
+        doubleDownButton.gameObject.SetActive(false);
+
+        ToggleButtons(true);
+
+        blackjackBanner.gameObject.SetActive(false);
+        pushBanner.gameObject.SetActive(false);
+
+        doubledIcon.SetActive(false);
+
+        currentBetText.text = wager.GetCurrentBet.ToString();
+        RefreshPlayerCreditsDisplay();
+    }
+
+    public void RefreshPlayerCreditsDisplay()
+    {
+        if (availableCreditsText != null) availableCreditsText.text = string.Format(CREDITS_TEXT_PREFIX, BlackjackGameManager.Instance.GetPlayerCredits);
+    }
+
+    //show player's winning animation under different situations
     public override float ShowWinUI(BlackjackResult result)
     {
         float totalAnimationTime = 0;
         float winningTickupTime = 2f;
 
+        //animate and show specific banner based on the win(payout) condition
         if (result == BlackjackResult.PlayerBlackjack) AnimateBanner(blackjackBanner);
 
         if (result == BlackjackResult.PlayerWin)
@@ -189,20 +206,17 @@ public class BlackjackPlayerAreaUI : BlackjackCardAreaUI
             totalAnimationTime = AnimateBanner(pushBanner);
         }
 
+        //show player's total credits going up
         DOVirtual.DelayedCall(totalAnimationTime, () =>
         {
             float prev = BlackjackGameManager.Instance.GetPlayerCredits - wager.GetWinning;
             float newVal = BlackjackGameManager.Instance.GetPlayerCredits;
             DOTween.To(UpdateCreditText, prev, newVal, winningTickupTime);
-        });        
+        });
 
-        return totalAnimationTime + winningTickupTime;
+        //this will return the total amount of time to complete all these animation
+        //so the next step could wait that amount of time before they happen
+        return totalAnimationTime + winningTickupTime; 
     }
-
-    private void ToggleButtons(bool active)
-    {
-        standButton.interactable = active;
-        hitButton.interactable = active;
-        doubleDownButton.interactable = active;
-    }
+    #endregion
 }

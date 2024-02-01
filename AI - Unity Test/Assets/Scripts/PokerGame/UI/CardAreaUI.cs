@@ -15,11 +15,12 @@ public class CardAreaUI : MonoBehaviour
     private List<CardButtonUI> playerHandUI = new List<CardButtonUI>();
     public List<CardButtonUI> GetPlayerHandUI => playerHandUI;
 
+    #region PUBLIC METHODS
     public void Init()
     {
         if (currentHandText != null) currentHandText.text = string.Empty;
 
-        if (cardAreaContainer != null && cardButtonUI != null)
+        if (cardAreaContainer != null && cardButtonUI != null) //instantiate the cards
         {
             for (int i = 0; i < PokerGameManager.Instance.GetGameSetting.GetPlayerStartingHandSize; i++)
             {
@@ -29,7 +30,7 @@ public class CardAreaUI : MonoBehaviour
             }
         }
 
-        if (messageBanner != null)
+        if (messageBanner != null) //display the message banner
         {
             messageBanner.SetActive(true);
             messageBanner.transform.SetAsLastSibling();
@@ -42,6 +43,7 @@ public class CardAreaUI : MonoBehaviour
         messageBannerText.text = string.Format("PLAY {0} CREDITS", PokerGameManager.Instance.GetCurrentBet);
     }
 
+    //display the current valid hand
     public void UpdateCurrentValidHandText(string handName)
     {
         currentHandText.text = handName;
@@ -66,25 +68,26 @@ public class CardAreaUI : MonoBehaviour
 
         for (int i = 0; i < PokerGameManager.Instance.GetGameSetting.GetPlayerHand.GetCurrentHand.Count; i++)
         {
-            playerHandUI[i].ToggleInteraction(true);
+            playerHandUI[i].ToggleInteraction(true); //turn on all the card's interactable
             playerHandUI[i].UpdateUI(PokerGameManager.Instance.GetGameSetting.GetPlayerHand.GetCurrentHand[i].cardSprite);
         }
     }
-
+    //update the cards based on which cards aren't held
     public void UpdateNewHandUI()
     {
         for (int i = 0; i < playerHandUI.Count; i++)
         {
-            playerHandUI[i].ToggleInteraction(false);
+            playerHandUI[i].ToggleInteraction(false); //disable all the cards' interactable
 
             if (playerHandUI[i].GetHeldState)
             {
-                playerHandUI[i].OnCardClicked();
-                continue;
+                playerHandUI[i].OnCardClicked(); //switch off held state of those cards that got held
+                continue; //held cards are not to be replaced
             }
 
             PokerGameManager.Instance.GetGameSetting.GetPlayerHand.ReplaceCardFromDeck(i);
             playerHandUI[i].UpdateUI(PokerGameManager.Instance.GetGameSetting.GetPlayerHand.GetCurrentHand[i].cardSprite);
         }
     }
+    #endregion
 }

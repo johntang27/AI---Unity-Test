@@ -22,6 +22,7 @@ public class MenuPokerGameButton : MonoBehaviour
 
         if (gameNameText != null) gameNameText.text = ((PokerGameSettingScriptableObject)gameSetting).GetPokerSubGame.ToString().Replace('_', ' ');
 
+        //show the coming soon blocker if the corresponding poker game setting is not available(incomplete)
         if (!gameSetting.IsAvailable)
         {
             comingSoonBlocker.SetActive(true);

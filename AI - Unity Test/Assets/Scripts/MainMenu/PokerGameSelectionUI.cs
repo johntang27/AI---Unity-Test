@@ -11,6 +11,7 @@ public class PokerGameSelectionUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //create all the poker game selection buttons and assigned them the corresponding poker game setting
         for (int i = 0; i < pokerGameSettings.Length; i++)
         {
             MenuPokerGameButton gameButton = Instantiate(menuPokerGameButtonPrefab, selectionContainer);

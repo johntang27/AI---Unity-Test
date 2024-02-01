@@ -38,7 +38,7 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
     public int GetPlayerCredits => gameSetting.GetPlayerData.PlayerCredits;
     public int GetCurrentBet => gameSetting.GetWager.GetCurrentBet;
 
-    [SerializeField] private int playerBestResult = 0;
+    private int playerBestResult = 0;
 
     private void Start()
     {
@@ -50,12 +50,12 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
             }            
         }
     }
-
+    #region PUBLIC METHODS
     public void StartBlackjack()
     {
         if (gameSetting != null)
         {
-            gameSetting.GetWager.ValidateBet();
+            gameSetting.GetWager.ValidateBet(); //validate and update the bet after a double down attempt, in case the current bet exceed the bet range allowed
 
             roundResult = BlackjackResult.NoResult;
 
@@ -72,11 +72,115 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
         }
     }
 
+    public void ShowAddCoinPopup()
+    {
+        if (addCoinPopup != null && uiCanvas != null)
+        {
+            AddCoinPopup popup = Instantiate(addCoinPopup, uiCanvas);
+            popup.OnClose = () => playerAreauUI.RefreshPlayerCreditsDisplay();
+        }
+    }
+
+    public void PlayerHit(bool isBetDouble = false)
+    {
+        AddCardToHand(gameSetting.GetPlayerHand);
+
+        HandResult playerResult = CalculateHandTotal(gameSetting.GetPlayerHand.GetCurrentHand);
+        if (playerResult.lowTotal > gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.PlayerLose; //player bust
+
+        playerBestResult = playerResult.highTotal > gameSetting.GetBlackjackGoal ? playerResult.lowTotal : playerResult.highTotal;
+
+        deckUI.DealCardToPlayer(gameSetting.GetPlayerHand.GetLastCardInHand(),
+            () => {
+                playerAreauUI.UpdateUI(playerResult, gameSetting.GetBlackjackGoal, isBetDouble);
+                if (roundResult != BlackjackResult.NoResult) ResolveRoundResult();
+            },
+        isBetDouble);
+
+        //when player hand reaches 21, we want to have the dealer take their turn
+        if (playerResult.lowTotal == gameSetting.GetBlackjackGoal || playerResult.highTotal == gameSetting.GetBlackjackGoal) StartCoroutine(DelayDealerCheck());
+    }
+
+    public void PlayerStand()
+    {
+        dealerAreaUI.FlipUpDealerCard();
+        HandResult dealerResult = CalculateHandTotal(gameSetting.GetDealerHand.GetCurrentHand); //dealer starting hand result after reveal
+        dealerAreaUI.UpdateUI(dealerResult, gameSetting.GetBlackjackGoal);
+        StartCoroutine(DealerDrawCards(dealerResult));
+    }
+
+    public void PlayerDouble()
+    {
+        gameSetting.GetWager.DoubleDownBet();
+        PlayerHit(true); //player only take one card, then we go directly to dealer's turn
+        StartCoroutine(DelayDealerCheck());
+    }
+    #endregion
+
+    #region PRIVATE METHODS
+    private HandResult CalculateHandTotal(List<PlayerCard> hand, bool negateDealerFirstCard = false)
+    {
+        int highValue = hand.Sum(card => card.blackjackValue); //Ace has a default value of 11
+        int aceCount = hand.Where(card => card.cardValue == CardValue.Ace).Count();
+        bool hasAce = aceCount > 0;
+
+        //with multiple Aces in hand, we want to cout at least one Ace as 11, and the rest as 1
+        if (aceCount > 1) highValue -= (aceCount - 1) * 10;
+
+        //with Ace, it can either be counted as 1 or 11, so we cached the lowest total value using Ace as 1
+        //we subtract 10 from highest total based on how many Aces are in the hand
+        int lowValue = hasAce ? hand.Sum(card => card.blackjackValue) - 10 * aceCount : highValue;
+
+        //dealer's first card is dealt facedown, so we do not want to count that value
+        if (negateDealerFirstCard)
+        {
+            highValue = hand[1].blackjackValue;
+            hasAce = hand[1].cardValue == CardValue.Ace;
+            lowValue = hasAce ? highValue - 10 : highValue;
+        }
+
+        //FUTURE IMPLEMENTATION, cache the cards to handle a possible split
+        if (hand.Count == 2)
+        {
+            if (hand[0].cardValue == hand[1].cardValue)
+            {
+                return new HandResult(highValue, lowValue, hasAce, hand[0], hand[1]);
+            }
+        }
+
+        return new HandResult(highValue, lowValue, hasAce);
+    }
+
+    private void AddCardToHand(BlackjackHandScriptableObject hand)
+    {
+        hand.DrawNextCardFromDeck();
+    }
+
+    private void ResolveRoundResult()
+    {
+        //add up all the time it would take to complete the corresponding animations
+        float bannerAnimationDuration = 0;
+
+        if (roundResult == BlackjackResult.PlayerLose)
+            bannerAnimationDuration = dealerAreaUI.ShowWinUI(roundResult);
+        else if (roundResult == BlackjackResult.NoResult)
+            Debug.LogError("THIS SHOULDN'T HAPPEN");
+        else
+        {
+            gameSetting.GetWager.AwardWinning(roundResult);
+            bannerAnimationDuration = playerAreauUI.ShowWinUI(roundResult);
+        }
+
+        //pass in the total and use it as a delay to reset all the play area UI
+        StartCoroutine(PrepareNextRound(bannerAnimationDuration));
+    }
+
     IEnumerator DealStartingHandFromDeck()
     {
         int dealt = 0;
         int cardIndex = 0;
         bool dealerFirstCard = true;
+        //take turns dealing out the starting hand to player and dealer
         while (dealt < 4)
         {
             if (dealt == 0 || dealt == 2)
@@ -96,61 +200,31 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
         }
 
         HandResult playerStartingResult = CalculateHandTotal(gameSetting.GetPlayerHand.GetCurrentHand);
-        playerBestResult = playerStartingResult.highTotal > gameSetting.GetBlackjackGoal ? playerStartingResult.lowTotal : playerStartingResult.highTotal;
+        playerBestResult = playerStartingResult.highTotal > gameSetting.GetBlackjackGoal ? playerStartingResult.lowTotal : playerStartingResult.highTotal; //cache the player's starting hand value
 
+        //update the dealer and player play area UI
         dealerAreaUI.UpdateUI(CalculateHandTotal(gameSetting.GetDealerHand.GetCurrentHand, true), gameSetting.GetBlackjackGoal);
         playerAreauUI.UpdateUI(playerStartingResult, gameSetting.GetBlackjackGoal);
 
-        if (playerStartingResult.highTotal == gameSetting.GetBlackjackGoal)
+        if (playerStartingResult.highTotal == gameSetting.GetBlackjackGoal) //player achieves blackjack on starting hand
         {
+            //reveal dealer's facedown card and check for blackjack
             dealerAreaUI.FlipUpDealerCard();
             HandResult dealerResult = CalculateHandTotal(gameSetting.GetDealerHand.GetCurrentHand); //dealer starting hand result after reveal
             dealerAreaUI.UpdateUI(dealerResult, gameSetting.GetBlackjackGoal);
 
+            //update the round result based on dealer's total
             if (dealerResult.highTotal != gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.PlayerBlackjack;
             else if (dealerResult.highTotal == gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.Push;
+
             ResolveRoundResult();
         }
     }
 
-    private HandResult CalculateHandTotal(List<PlayerCard> hand, bool negateDealerFirstCard = false)
-    {
-        int highValue = hand.Sum(card => card.blackjackValue); //Ace has a default value of 11
-        int aceCount = hand.Where(card => card.cardValue == CardValue.Ace).Count();
-        bool hasAce = aceCount > 0;
-
-        //with multiple Aces in hand, we want to cout at least one Ace as 11, and the rest as 1
-        if (aceCount > 1) highValue -= (aceCount - 1) * 10;
-
-        //with Ace, it can either be counted as 1 or 11, so we cached the lowest total value using Ace as 1
-        //we subtract 10 from highest total based on how many Aces are in the hand
-        int lowValue = hasAce ? hand.Sum(card => card.blackjackValue) - 10 * aceCount : highValue; 
-
-        if (negateDealerFirstCard)
-        {
-            highValue = hand[1].blackjackValue;
-            hasAce = hand[1].cardValue == CardValue.Ace;
-            lowValue = hasAce ? highValue - 10 : highValue;
-        }
-
-        if (hand.Count == 2)
-        {
-            if (hand[0].cardValue == hand[1].cardValue)
-            {
-                return new HandResult(highValue, lowValue, hasAce, hand[0], hand[1]);
-            }
-        }
-
-        return new HandResult(highValue, lowValue, hasAce);
-    }
-
-    private void AddCardToHand(BlackjackHandScriptableObject hand)
-    {
-        hand.DrawNextCardFromDeck();
-    }
-
+    //after player stands, we have the dealer draw cards until their hand is complete
     IEnumerator DealerDrawCards(HandResult result)
     {
+        //dealer achieves 21 on the first card they drew, break out coroutine and proceed to round ending sequence
         if (result.lowTotal == gameSetting.GetBlackjackGoal || result.highTotal == gameSetting.GetBlackjackGoal)
         {
             roundResult = BlackjackResult.PlayerLose;
@@ -160,7 +234,7 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
 
         HandResult nextResult = result;
 
-        while(nextResult.lowTotal < 17)
+        while(nextResult.lowTotal < 17) //we have the dealer continue to draw cards if their current total is less than 17
         {
             //Debug.LogError("dealerResult is: " + nextResult.lowTotal);
             yield return new WaitForSeconds(0.5f);
@@ -171,6 +245,7 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
                 dealerAreaUI.UpdateUI(nextResult, gameSetting.GetBlackjackGoal);
             });
         }
+        //dealer's hand total is now greater than 16, so we now handle the result and compare with player's total
         yield return new WaitForSeconds(1.5f);
         if (nextResult.lowTotal > gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.PlayerWin;
         else if (nextResult.lowTotal == playerBestResult) roundResult = BlackjackResult.Push;
@@ -180,57 +255,7 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
         ResolveRoundResult();
     }
 
-    public void PlayerHit(bool isBetDouble = false)
-    {
-        AddCardToHand(gameSetting.GetPlayerHand);
-
-        HandResult playerResult = CalculateHandTotal(gameSetting.GetPlayerHand.GetCurrentHand);
-        if (playerResult.lowTotal > gameSetting.GetBlackjackGoal) roundResult = BlackjackResult.PlayerLose;
-
-        playerBestResult = playerResult.highTotal > gameSetting.GetBlackjackGoal ? playerResult.lowTotal : playerResult.highTotal;
-
-        deckUI.DealCardToPlayer(gameSetting.GetPlayerHand.GetLastCardInHand(), 
-            ()=> {
-                playerAreauUI.UpdateUI(playerResult, gameSetting.GetBlackjackGoal, isBetDouble);
-                if (roundResult != BlackjackResult.NoResult) ResolveRoundResult();
-            },
-        isBetDouble);
-
-        if (playerResult.lowTotal == gameSetting.GetBlackjackGoal || playerResult.highTotal == gameSetting.GetBlackjackGoal) StartCoroutine(DelayDealerCheck());
-    }
-
-    public void PlayerStand()
-    {
-        dealerAreaUI.FlipUpDealerCard();
-        HandResult dealerResult = CalculateHandTotal(gameSetting.GetDealerHand.GetCurrentHand); //dealer starting hand result after reveal
-        dealerAreaUI.UpdateUI(dealerResult, gameSetting.GetBlackjackGoal);
-        StartCoroutine(DealerDrawCards(dealerResult));
-    }
-
-    public void PlayerDouble()
-    {
-        gameSetting.GetWager.DoubleDownBet();
-        PlayerHit(true);
-        StartCoroutine(DelayDealerCheck());
-    }
-
-    private void ResolveRoundResult()
-    {
-        float bannerAnimationDuration = 0;
-
-        if (roundResult == BlackjackResult.PlayerLose)
-            bannerAnimationDuration = dealerAreaUI.ShowWinUI(roundResult);
-        else if (roundResult == BlackjackResult.NoResult)
-            Debug.LogError("THIS SHOULDN'T HAPPEN");
-        else
-        {
-            gameSetting.GetWager.AwardWinning(roundResult);
-            bannerAnimationDuration = playerAreauUI.ShowWinUI(roundResult);
-        }
-
-        StartCoroutine(PrepareNextRound(bannerAnimationDuration));
-    }
-
+    //reset the dealer and player area UI for the new round
     IEnumerator PrepareNextRound(float delay)
     {
         yield return new WaitForSeconds(delay + 1);
@@ -244,13 +269,5 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
         yield return new WaitForSeconds(1f);
         if (roundResult == BlackjackResult.NoResult) PlayerStand();
     }
-
-    public void ShowAddCoinPopup()
-    {
-        if (addCoinPopup != null && uiCanvas != null)
-        {
-            AddCoinPopup popup = Instantiate(addCoinPopup, uiCanvas);
-            popup.OnClose = () => playerAreauUI.RefreshPlayerCreditsDisplay();
-        }
-    }
+    #endregion
 }

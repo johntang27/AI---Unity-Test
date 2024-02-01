@@ -6,9 +6,11 @@ using TMPro;
 
 public class BottomGameAreaUI : MonoBehaviour
 {
+    #region CONSTANTS
     private const string CURRENT_BET_STRING = "BET: {0}";
     private const string TOTAL_CREDITS_STRING = "TOTAL CREDITS: {0}";
     private const string WIN_AMOUNT_STRING = "WIN {0}";
+    #endregion
 
     [SerializeField] private TextMeshProUGUI winAmountText = null;
     [SerializeField] private TextMeshProUGUI currentBetText = null;
@@ -22,6 +24,7 @@ public class BottomGameAreaUI : MonoBehaviour
     [SerializeField] private Button dealButton = null;
     [SerializeField] private TextMeshProUGUI dealButtonText = null;
 
+    #region PUBLIC METHODS
     public void Init()
     {
         if (PokerGameManager.Instance == null)
@@ -34,6 +37,7 @@ public class BottomGameAreaUI : MonoBehaviour
         UpdateCurrentBetText();
         UpdateTotalCreditsText();
 
+        //register all the button onclicks
         if (gameInfoButton != null) gameInfoButton.onClick.AddListener(OnGameInfoClicked);
         if (speedUpButton != null) speedUpButton.onClick.AddListener(OnSpeedButtonClicked);
         if (betDownButton != null) betDownButton.onClick.AddListener(OnBetDownClicked);
@@ -41,6 +45,42 @@ public class BottomGameAreaUI : MonoBehaviour
         if (dealButton != null) dealButton.onClick.AddListener(OnDealClicked);
     }
 
+    public void ToggleBetButtons(bool canGoDown, bool canGoUp)
+    {
+        betDownButton.interactable = canGoDown;
+        betUpButton.interactable = canGoUp;
+    }
+
+    //update the Ui accordingly after the hand is dealt
+    public void UpdateUIAfterDeal()
+    {
+        UpdateDealButtonText("DRAW");
+        UpdateCurrentBetText();
+        UpdateTotalCreditsText();
+        moreGamesButton.interactable = false;
+        betDownButton.interactable = false;
+        betUpButton.interactable = false;
+        dealButton.interactable = true;
+    }
+
+    public void ShowWinText(int amt)
+    {
+        winAmountText.gameObject.SetActive(true);
+        winAmountText.text = string.Format(WIN_AMOUNT_STRING, amt);
+        UpdateTotalCreditsText();
+    }
+
+    //update the UI accordingly after the hand result and payout
+    public void UpdateUIAfterResult()
+    {
+        winAmountText.gameObject.SetActive(false);
+        UpdateDealButtonText("DEAL");
+        moreGamesButton.interactable = true;
+        dealButton.interactable = true;
+    }
+    #endregion
+
+    #region PRIVATE METHODS
     private void UpdateCurrentBetText()
     {
         if (currentBetText != null) currentBetText.text = string.Format(CURRENT_BET_STRING, PokerGameManager.Instance.GetCurrentBet);
@@ -63,8 +103,9 @@ public class BottomGameAreaUI : MonoBehaviour
 
     private void OnSpeedButtonClicked()
     {
-        int arrowIndex = PokerGameManager.Instance.AdjustSpeed();
+        int arrowIndex = PokerGameManager.Instance.AdjustSpeed(); //get the current speed reference
 
+        //update the arrows on the speed button accordingly based on the speed reference
         if (arrowIndex > 0) speedIcons[arrowIndex].SetActive(true);
         else
         {
@@ -90,36 +131,5 @@ public class BottomGameAreaUI : MonoBehaviour
         dealButton.interactable = false;
         PokerGameManager.Instance.DealOrDrawButtonClicked();
     }
-
-    public void ToggleBetButtons(bool canGoDown, bool canGoUp)
-    {
-        betDownButton.interactable = canGoDown;
-        betUpButton.interactable = canGoUp;
-    }
-
-    public void UpdateUIAfterDeal()
-    {
-        UpdateDealButtonText("DRAW");
-        UpdateCurrentBetText();
-        UpdateTotalCreditsText();
-        moreGamesButton.interactable = false;
-        betDownButton.interactable = false;
-        betUpButton.interactable = false;
-        dealButton.interactable = true;
-    }
-
-    public void ShowWinText(int amt)
-    {
-        winAmountText.gameObject.SetActive(true);
-        winAmountText.text = string.Format(WIN_AMOUNT_STRING, amt);
-        UpdateTotalCreditsText();
-    }
-
-    public void UpdateUIAfterResult()
-    {
-        winAmountText.gameObject.SetActive(false);
-        UpdateDealButtonText("DEAL");
-        moreGamesButton.interactable = true;
-        dealButton.interactable = true;
-    }
+    #endregion
 }

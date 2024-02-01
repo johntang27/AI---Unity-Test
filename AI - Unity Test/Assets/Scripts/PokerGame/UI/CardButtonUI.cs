@@ -21,6 +21,7 @@ public class CardButtonUI : MonoBehaviour
         if (heldIndicator != null) heldIndicator.SetActive(false);
     }
 
+    #region PUBLIC METHODS
     public void UpdateUI(Sprite cardSprite)
     {
         if (cardImage != null) cardImage.sprite = cardSprite;
@@ -36,4 +37,5 @@ public class CardButtonUI : MonoBehaviour
     {
         button.interactable = on;
     }
+    #endregion
 }

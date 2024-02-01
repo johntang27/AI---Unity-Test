@@ -14,15 +14,14 @@ public class BlackjackCardAreaUI : MonoBehaviour
     [SerializeField] protected GameObject bustBanner = null;
     [SerializeField] protected RectTransform winBanner = null;
 
-    public Transform GetCardContainer => cardContainer;
-    
+    public Transform GetCardContainer => cardContainer;    
     private HandResult handResult;
 
     protected virtual void Start()
     {
         SetDefaultState();
     }
-
+    #region PUBLIC METHODS
     public virtual void UpdateUI(HandResult handResult, int goal, bool doubledDown = false)
     {
         this.handResult = handResult;
@@ -43,18 +42,13 @@ public class BlackjackCardAreaUI : MonoBehaviour
             currentTotalText.text = goal.ToString();
         }
 
-        if(handResult.lowTotal > goal && handResult.highTotal > goal)
+        if(handResult.lowTotal > goal && handResult.highTotal > goal) //show busted banner
         {
             bustBanner.SetActive(true);
         }
     }
 
-    public void FlipUpDealerCard()
-    {
-        if (cardContainer.childCount > 0) cardContainer.GetChild(0).GetComponent<BlackjackCardUI>().FlipFacedownCard();
-    }
-
-    public virtual void SetDefaultState()
+    public virtual void SetDefaultState() //set up the default UI of the play area
     {
         if (currentTotalText != null) currentTotalText.transform.parent.gameObject.SetActive(false);
 
@@ -67,6 +61,18 @@ public class BlackjackCardAreaUI : MonoBehaviour
         winBanner.gameObject.SetActive(false);
     }
 
+    public virtual float ShowWinUI(BlackjackResult result)
+    {
+        return AnimateBanner(winBanner);
+    }
+       
+    public void FlipUpDealerCard()
+    {
+        if (cardContainer.childCount > 0) cardContainer.GetChild(0).GetComponent<BlackjackCardUI>().FlipFacedownCard();
+    }
+    #endregion
+
+    #region PROTECTED METHODS
     protected float AnimateBanner(RectTransform rect)
     {
         if (rect != null)
@@ -78,9 +84,5 @@ public class BlackjackCardAreaUI : MonoBehaviour
 
         return bannerAnimationTime;
     }
-
-    public virtual float ShowWinUI(BlackjackResult result)
-    {
-        return AnimateBanner(winBanner);
-    }
+    #endregion
 }

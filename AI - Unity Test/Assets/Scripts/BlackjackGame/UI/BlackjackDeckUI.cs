@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BlackjackDeckUI : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class BlackjackDeckUI : MonoBehaviour
     [SerializeField] private Transform[] playerSplitsArea;
     [SerializeField] private BlackjackCardUI cardUIPrefab = null;
 
+    #region PUBLIC METHODS
     public void DealCardToPlayer(PlayerCard card, Action onDestinationReached = null, bool isDouble = false)
     {
         if(card == null)
@@ -38,4 +38,5 @@ public class BlackjackDeckUI : MonoBehaviour
         BlackjackCardUI cardUI = Instantiate(cardUIPrefab, this.transform.position, Quaternion.identity, this.transform);
         cardUI.Init(card, dealerArea.transform, dealerArea.GetCardContainer, isFirstCard, onDestinationReached);
     }
+    #endregion
 }
