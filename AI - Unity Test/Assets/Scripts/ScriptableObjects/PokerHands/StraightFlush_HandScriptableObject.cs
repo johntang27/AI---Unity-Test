@@ -14,7 +14,7 @@ public class StraightFlush_HandScriptableObject : PokerHandScriptableObject
     {
         if (playerHand == null || straight == null || flush == null) return false;
 
-        if(!string.IsNullOrEmpty(cachedResult))
+        if(!string.IsNullOrEmpty(cachedResult)) //check if there's a cached result from checking another combination, ex. royal flush
         {
             bool isValidResult = bool.TryParse(cachedResult, out result);
             if(isValidResult)
@@ -24,7 +24,9 @@ public class StraightFlush_HandScriptableObject : PokerHandScriptableObject
             }
         }
 
+        //check for straight, cache the result
         bool isStraight = straight.IsHandValid(true);
+        //check for flush, cache the result
         bool isFlush = flush.IsHandValid(true);
 
         result = isStraight && isFlush;

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Currently only contains player's credit amount
+/// Can always add more properties, all games in the app will use this, keep all of player's data organized and consistent across different games
+/// </summary>
 [CreateAssetMenu(fileName = "PlayerDataScriptableObject", menuName = "ScriptableObjects/PlayerDataScriptableObject")]
 public class PlayerDataScriptableObject : ScriptableObject
 {

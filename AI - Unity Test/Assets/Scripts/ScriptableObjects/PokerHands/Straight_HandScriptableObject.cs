@@ -12,24 +12,25 @@ public class Straight_HandScriptableObject : PokerHandScriptableObject
     {
         if (playerHand == null) return false;
 
-        if (!string.IsNullOrEmpty(cachedResult))
+        if (!string.IsNullOrEmpty(cachedResult)) //check if there's a cached result from checking another combination, ex. straight flush
         {
             bool isValidResult = bool.TryParse(cachedResult, out result);
-            if (isValidResult)
+            if (isValidResult) //return the cached result instead if parsing is succesfull
             {
                 cachedResult = string.Empty;
                 return result;
             }
         }
 
-        var ordered = playerHand.GetCurrentHand.OrderBy(card => card.cardValue).ToList();
+        //return an ordered list based on cardValue
+        var ordered = playerHand.GetCurrentHand.OrderBy(card => card.cardValue).ToList(); 
         int consecutive = 0;
         for (int i = 0; i < ordered.Count - 1; i++)
         {
             //Debug.LogError(ordered[i].cardValue);
             if ((int)ordered[i].cardValue + 1 != (int)ordered[i + 1].cardValue)
             {
-                //Ace can be treated as lowest rank to complete a straight (e.g. A-2-3-4-5), in my ordered enum, Ace is considered the highest.
+                //Ace can also be treated as the lowest rank to complete a straight (e.g. A-2-3-4-5), in my ordered enum, Ace is considered the highest.
                 //This is a special edge case check to see if the first ordered card is 2 and also if the last card is Ace
                 //The consecutive variable is a counter to track if 2-3-4-5 has happened
                 if (consecutive == 3 && ordered[i + 1].cardValue == CardValue.Ace && ordered[0].cardValue == CardValue.Two)

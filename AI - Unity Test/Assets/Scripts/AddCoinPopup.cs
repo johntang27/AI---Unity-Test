@@ -28,6 +28,7 @@ public class AddCoinPopup : MonoBehaviour
 
         for (int i = 0; i < addCreditButtons.Length; i++)
         {
+            //adding credits to player's account, 1, 10, 100, 1000
             float amt = Mathf.Pow(10, i);
             addCreditButtons[i].onClick.AddListener(() =>
             {

@@ -55,7 +55,8 @@ public class BlackjackGameManager : Singleton<BlackjackGameManager>
     {
         if (gameSetting != null)
         {
-            gameSetting.GetWager.ValidateBet(); //validate and update the bet after a double down attempt, in case the current bet exceed the bet range allowed
+            //validate and update the bet after a double down attempt, in case the current bet exceed the bet range allowed
+            gameSetting.GetWager.ValidateBet(); 
 
             roundResult = BlackjackResult.NoResult;
 

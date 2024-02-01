@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The PayoutTableScriptableObject sets up the order of highest winning hand to the lowest winning hand
+/// It also contains a list of payout multiplier that will increase the payout based on player's bet
+/// </summary>
 [CreateAssetMenu(fileName = "PayoutTableScriptableTable", menuName = "ScriptableObjects/PayoutTableScriptableTable")]
 public class PayoutTableScriptableObject : ScriptableObject
 {

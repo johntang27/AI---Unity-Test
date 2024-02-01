@@ -19,6 +19,12 @@ public class CardScriptableObject : ScriptableObject
     public Sprite GetSprite => cardSprite;
     public int GetBlackjackCardValue => blackjackCardValue;
 
+/// <summary>
+/// Sets up the card data procedurally by using the name of the sprite
+/// </summary>
+/// <param name="sprite">the actual sprite to display the card</param>
+/// <param name="spriteSourceSO">CardSpriteScriptableObject contains the location of the card spriteSheet, 
+/// so it can be used if you need to update a specific single card</param>
     public void UpdateData(Sprite sprite, CardSpriteScriptableObject spriteSourceSO = null)
     {
         string[] splits = this.name.Split('_');

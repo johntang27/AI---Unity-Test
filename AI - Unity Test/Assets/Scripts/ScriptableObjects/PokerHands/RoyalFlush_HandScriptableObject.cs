@@ -12,9 +12,12 @@ public class RoyalFlush_HandScriptableObject : PokerHandScriptableObject
     {
         if (playerHand == null || straightFlush == null) return false;
 
+        //check for straight flush, cache the result
         bool isStraightFlush = straightFlush.IsHandValid(true);
-        bool hasAceAndTen = playerHand.GetCurrentHand.Any(card => card.cardValue == CardValue.Ace || card.cardValue == CardValue.Ten);
+        //check for Ace and Ten
+        bool hasAce = playerHand.GetCurrentHand.Exists(x => x.cardValue == CardValue.Ace);
+        bool hasTen = playerHand.GetCurrentHand.Exists(x => x.cardValue == CardValue.Ten);
 
-        return isStraightFlush && hasAceAndTen;
+        return isStraightFlush && hasAce && hasTen;
     }
 }

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Blackjack's own ScriptableObject to handle special case of blackjack betting style
+/// Awards the player corresponding winning based on the win result
+/// </summary>
 [CreateAssetMenu(fileName = "BlackjackWagerScriptableObject", menuName = "ScriptableObjects/WagerScriptableObject/BlackjackWagerScriptableObject")]
 public class BlackjackWagerScriptableObject : WagerScriptableObject
 {

@@ -14,18 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHand:
   - cardSuit: 1
-    cardValue: 0
-    cardSprite: {fileID: 2643091180389808252, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
-  - cardSuit: 1
-    cardValue: 9
-    cardSprite: {fileID: 3830633340428185749, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    cardValue: 10
+    cardSprite: {fileID: -4953792408971915993, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 10
+  - cardSuit: 3
+    cardValue: 2
+    cardSprite: {fileID: -2880894646473429144, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 4
   - cardSuit: 2
     cardValue: 9
     cardSprite: {fileID: 597003915940546919, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 10
   - cardSuit: 2
-    cardValue: 6
-    cardSprite: {fileID: 3415645879610439534, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
-  - cardSuit: 3
-    cardValue: 9
-    cardSprite: {fileID: 3850180587550573382, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    cardValue: 10
+    cardSprite: {fileID: 3443126084330352417, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 10
+  - cardSuit: 0
+    cardValue: 4
+    cardSprite: {fileID: 4313810329536373301, guid: c45f6ae53cabdb242a345ddad0630482, type: 3}
+    blackjackValue: 6
   deck: {fileID: 11400000, guid: 3c209d3203238d242a81aed3b04097b4, type: 2}

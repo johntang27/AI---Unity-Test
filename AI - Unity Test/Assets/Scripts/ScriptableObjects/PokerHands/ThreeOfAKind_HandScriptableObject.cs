@@ -12,7 +12,7 @@ public class ThreeOfAKind_HandScriptableObject : PokerHandScriptableObject
     {
         if (playerHand == null) return false;
 
-        if (!string.IsNullOrEmpty(cachedResult))
+        if (!string.IsNullOrEmpty(cachedResult)) //check if there's a cached result from checking another combination, ex. full house
         {
             bool isValidResult = bool.TryParse(cachedResult, out result);
             if (isValidResult)

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains specific Poker game setting properties
+/// Identitfy what type of poker game it is
+/// Its own PlayerHandScriptableObject, and PayoutTableScriptableObject for this specific poker game
+/// </summary>
 [CreateAssetMenu(fileName = "PokerGameSetting", menuName = "ScriptableObjects/GameSetting/PokerGameSetting")]
 public class PokerGameSettingScriptableObject : GameModeSettingScriptableObject
 {

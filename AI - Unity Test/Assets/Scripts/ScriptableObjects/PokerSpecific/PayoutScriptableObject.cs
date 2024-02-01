@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The PayoutScriptableObject is responsible for referring to the poker hand and its base payout amount
+/// </summary>
 [CreateAssetMenu(fileName = "PayoutScriptableObject", menuName = "ScriptableObjects/PayoutScriptableObject")]
 public class PayoutScriptableObject : ScriptableObject
 {

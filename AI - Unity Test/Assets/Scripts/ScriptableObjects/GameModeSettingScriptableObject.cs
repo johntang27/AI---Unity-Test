@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Common properties shared between various GameModeSetting, ex: Poker, Blackjack
+/// </summary>
 public class GameModeSettingScriptableObject : ScriptableObject
 {
     [SerializeField] protected GameMode gameMode;

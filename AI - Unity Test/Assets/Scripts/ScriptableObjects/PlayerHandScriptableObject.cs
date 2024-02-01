@@ -20,6 +20,10 @@ public class PlayerCard
     }
 }
 
+/// <summary>
+/// Contains the cards currently in player's hand, inherited by DealerHandScriptableObject
+/// Also reference the DeckScriptableObject that will be drawing cards from
+/// </summary>
 [CreateAssetMenu(fileName = "PlayerHandScriptableObject", menuName = "ScriptableObjects/PlayerHandScriptableObject")]
 public class PlayerHandScriptableObject : ScriptableObject
 {

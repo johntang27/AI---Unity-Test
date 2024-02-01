@@ -12,12 +12,12 @@ public class Flush_HandScriptableObject : PokerHandScriptableObject
     {
         if (playerHand == null) return false;
 
-        if (!string.IsNullOrEmpty(cachedResult))
+        if (!string.IsNullOrEmpty(cachedResult)) //check if there's a cached result from checking another combination, ex. straight flush
         {
             bool isValidResult = bool.TryParse(cachedResult, out result);
-            if (isValidResult)
+            if (isValidResult) //return the cached result instead if parsing is succesfull
             {
-                cachedResult = string.Empty;
+                cachedResult = string.Empty; 
                 return result;
             }
         }

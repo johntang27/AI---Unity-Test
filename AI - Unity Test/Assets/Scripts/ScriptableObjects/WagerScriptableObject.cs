@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles bet logic for the game, currently only used by Blackjack, which it inherits from
+/// Reference the PlayerDataScriptableObject, so we can directly change player's credits
+/// </summary>
 public class WagerScriptableObject : ScriptableObject
 {
     [SerializeField] protected PlayerDataScriptableObject playerData = null;

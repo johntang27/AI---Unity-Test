@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Common variables that will be inherited by all child ScriptableObjects to define the hand
+/// A virtual IsHandValid method to be override by child with its own corrsponding logic
+/// </summary>
 public class PokerHandScriptableObject : ScriptableObject
 {
     [SerializeField] protected PlayerHandScriptableObject playerHand = null;
